@@ -1,24 +1,15 @@
 #!/bin/bash
+{% if include_comments %}
 # sourced by ~/.i3/config.twig.twig
 
 # D-bus
+{% endif %}
 if which dbus-launch >/dev/null 2>&1 && test -z "$DBUS_SESSION_BUS_ADDRESS"; then
        eval `dbus-launch --sh-syntax --exit-with-session`
 fi
 
-# Make GTK apps look and behave how they were set up in the gnome config.twig.twig tools
-if test -x /usr/libexec/gnome-settings-daemon >/dev/null; then
-  /usr/libexec/gnome-settings-daemon &
-elif which gnome-settings-daemon >/dev/null 2>&1; then
-  gnome-settings-daemon &
-# Make GTK apps look and behave how they were set up in the XFCE config.twig.twig tools
-elif which xfce-mcs-manager >/dev/null 2>&1; then
-  xfce-mcs-manager n &
-fi
-
-# Preload stuff for KDE apps
-if which start_kdeinit >/dev/null 2>&1; then
-  LD_BIND_NOW=true start_kdeinit --new-startup +kcminit_startup &
-fi
-
+{% for command in commands %}
+{% if command == 'compton' %}
 compton --config .config/compton.conf &
+{% endif %}
+{% endfor %}
