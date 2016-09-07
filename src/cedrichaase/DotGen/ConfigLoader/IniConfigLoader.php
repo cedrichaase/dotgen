@@ -21,7 +21,7 @@ class IniConfigLoader implements ConfigLoaderInterface
     /**
      * The configuration key for defining the dotfile path
      */
-    const CONFIG_KEY_DOTFILE_PATH = 'config_file_path';
+    const CONFIG_KEY_DOTFILE_PATH = 'config_file_paths';
 
     /**
      * The entire ini file parsed to an array
@@ -60,9 +60,9 @@ class IniConfigLoader implements ConfigLoaderInterface
      *
      * @param string $name
      *
-     * @return string
+     * @return string[]
      */
-    public function getDotfilePathByName($name)
+    public function getDotfilePathsByName($name)
     {
         return $this->getConfigOptions($name)[self::CONFIG_KEY_DOTFILE_PATH];
     }

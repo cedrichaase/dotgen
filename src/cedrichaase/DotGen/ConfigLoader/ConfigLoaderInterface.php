@@ -17,9 +17,9 @@ interface ConfigLoaderInterface
      *
      * @param string $name
      *
-     * @return string
+     * @return string[]
      */
-    public function getDotfilePathByName($name);
+    public function getDotfilePathsByName($name);
 
     /**
      * Returns the names of all dotfiles with available configuration

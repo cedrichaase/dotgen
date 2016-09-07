@@ -32,8 +32,11 @@ class DotfileGenerator
         $names = $this->config()->getDotfileNames();
         foreach($names as $i => $name)
         {
-            $path = $this->config()->getDotfilePathByName($name);
-            $this->renderDotfile($name, $path);
+            $paths = $this->config()->getDotfilePathsByName($name);
+            foreach($paths as $j => $path)
+            {
+                $this->renderDotfile($name, $path);
+            }
         }
     }
 
