@@ -27,4 +27,11 @@ interface ConfigLoaderInterface
      * @return string[]
      */
     public function getDotfileNames();
+
+    /**
+     * Returns the output path for rendered dotfiles
+     *
+     * @return string
+     */
+    public function getOutputPath();
 }

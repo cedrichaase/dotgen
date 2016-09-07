@@ -14,6 +14,11 @@ class IniConfigLoader implements ConfigLoaderInterface
     const CONFIG_SECTION_GLOBAL = 'global';
 
     /**
+     * The config key for defining the render output path
+     */
+    const CONFIG_KEY_OUTPUT_PATH = 'deploy_path';
+
+    /**
      * The configuration key for defining the dotfile path
      */
     const CONFIG_KEY_DOTFILE_PATH = 'config_file_path';
@@ -73,5 +78,15 @@ class IniConfigLoader implements ConfigLoaderInterface
         unset($config[self::CONFIG_SECTION_GLOBAL]);
         $names = array_keys($config);
         return $names;
+    }
+
+    /**
+     * Returns the output path for rendered dotfiles
+     *
+     * @return string
+     */
+    public function getOutputPath()
+    {
+        return $this->config[self::CONFIG_SECTION_GLOBAL][self::CONFIG_KEY_OUTPUT_PATH];
     }
 }
