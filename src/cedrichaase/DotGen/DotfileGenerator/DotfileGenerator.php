@@ -15,12 +15,13 @@ class DotfileGenerator
     const CONFIG_PATH = self::BASE_DIR . '/config/config.ini';
 
     private $twig;
-    
+
+    /**
+     * Render ALL the dotfiles!
+     */
     public function renderDotfiles()
     {
         $config = parse_ini_file(self::CONFIG_PATH, true);
-        
-        var_dump($config);
         
         $data = $config['i3config'];
         $dotfile = $this->twig()->render('.i3/config.twig', $data);
@@ -28,7 +29,6 @@ class DotfileGenerator
         
         $data = $config['i3status'];
         $dotfile = $this->twig()->render('.config/i3status/config.twig', $data);
-        var_dump($dotfile);
         file_put_contents(self::DOTFILES_DIR . '/.config/i3status/config', $dotfile);
     }
 
