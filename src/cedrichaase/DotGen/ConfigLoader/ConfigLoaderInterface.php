@@ -34,4 +34,16 @@ interface ConfigLoaderInterface
      * @return string
      */
     public function getOutputPath();
+
+    /**
+     * Returns the path to read templates from
+     *
+     * @return string
+     */
+    public function getInputPath();
+
+    /**
+     * @return string
+     */
+    public function getTemplatingEngine();
 }

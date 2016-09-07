@@ -16,7 +16,17 @@ class IniConfigLoader implements ConfigLoaderInterface
     /**
      * The config key for defining the render output path
      */
-    const CONFIG_KEY_OUTPUT_PATH = 'deploy_path';
+    const CONFIG_KEY_OUTPUT_PATH = 'output_dir';
+
+    /**
+     * The config key for defining the path to read templates from
+     */
+    const CONFIG_KEY_INPUT_PATH = 'template_dir';
+
+    /**
+     * Config key for defining which templating engine to use
+     */
+    const CONFIG_KEY_TEMPLATING_ENGINE = 'template_engine';
 
     /**
      * The configuration key for defining the dotfile path
@@ -87,6 +97,39 @@ class IniConfigLoader implements ConfigLoaderInterface
      */
     public function getOutputPath()
     {
-        return $this->config[self::CONFIG_SECTION_GLOBAL][self::CONFIG_KEY_OUTPUT_PATH];
+        return $this->getGlobal(self::CONFIG_KEY_OUTPUT_PATH);
+    }
+
+    /**
+     * Returns the path to read templates from
+     *
+     * @return string
+     */
+    public function getInputPath()
+    {
+        return $this->getGlobal(self::CONFIG_KEY_INPUT_PATH);
+    }
+
+    /**
+     * Returns the name of the templating engine to use
+     * 
+     * @see Engine
+     *
+     * @return string
+     */
+    public function getTemplatingEngine()
+    {
+        return $this->getGlobal(self::CONFIG_KEY_TEMPLATING_ENGINE);
+    }
+
+    /**
+     * Return a global config variable by given key
+     *
+     * @param $key
+     * @return string
+     */
+    private function getGlobal($key)
+    {
+        return $this->config[self::CONFIG_SECTION_GLOBAL][$key];
     }
 }

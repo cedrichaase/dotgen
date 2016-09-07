@@ -2,7 +2,7 @@
 
 include_once __DIR__ . '/../vendor/autoload.php';
 
-use cedrichaase\DotGen\DotfileGenerator\DotfileGenerator;
+use cedrichaase\DotGen\DotGen;
 
-$generator = new DotfileGenerator();
-$generator->renderDotfiles();
+$gen = new DotGen($argv[1]);
+$gen->generate();

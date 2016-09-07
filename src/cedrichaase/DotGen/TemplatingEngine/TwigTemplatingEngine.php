@@ -13,8 +13,6 @@ class TwigTemplatingEngine implements TemplatingEngineInterface
 
     const TEMPLATE_DIR = self::TWIG_BASE_DIR . '/templates';
 
-    const CACHE_DIR = self::TWIG_BASE_DIR . '/cache';
-
     /**
      * @var Twig_LoaderInterface
      */
@@ -46,10 +44,8 @@ class TwigTemplatingEngine implements TemplatingEngineInterface
         if(!$this->env)
         {
             $this->env = new Twig_Environment($this->loader, [
-                'cache' => self::CACHE_DIR,
+                'cache' => false,
             ]);
-
-            $this->env->setCache(false);
         }
 
         return $this->env;
