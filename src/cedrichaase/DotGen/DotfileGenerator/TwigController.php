@@ -7,7 +7,9 @@ use Twig_LoaderInterface;
 
 class TwigController
 {
-    const TWIG_BASE_DIR = __DIR__ . '/../../../../twig';
+    const BASE_DIR = __DIR__ . '/../../../..';
+
+    const TWIG_BASE_DIR = self::BASE_DIR . '/twig';
 
     const TEMPLATE_DIR = self::TWIG_BASE_DIR . '/templates';
 

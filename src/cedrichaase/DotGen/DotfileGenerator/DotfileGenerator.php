@@ -1,6 +1,9 @@
 <?php
 namespace cedrichaase\DotGen\DotfileGenerator;
 
+use cedrichaase\DotGen\ConfigLoader\ConfigLoaderInterface;
+use cedrichaase\DotGen\ConfigLoader\IniConfigLoader;
+
 /**
  * Class DotfileGenerator
  *
@@ -17,19 +20,51 @@ class DotfileGenerator
     private $twig;
 
     /**
-     * Render ALL the dotfiles!
+     * @var ConfigLoaderInterface
+     */
+    private $config;
+
+    /**
+     * render ALL the dotfiles!
      */
     public function renderDotfiles()
     {
-        $config = parse_ini_file(self::CONFIG_PATH, true);
-        
-        $data = $config['i3config'];
-        $dotfile = $this->twig()->render('.i3/config.twig', $data);
-        file_put_contents(self::DOTFILES_DIR . '/.i3config', $dotfile);
-        
-        $data = $config['i3status'];
-        $dotfile = $this->twig()->render('.config/i3status/config.twig', $data);
-        file_put_contents(self::DOTFILES_DIR . '/.config/i3status/config', $dotfile);
+        $names = $this->config()->getDotfileNames();
+        foreach($names as $i => $name)
+        {
+            $path = $this->config()->getDotfilePathByName($name);
+            $this->renderDotfile($name, $path);
+        }
+    }
+
+    /**
+     * @param string $name
+     * @param string $path
+     */
+    private function renderDotfile($name, $path)
+    {
+        $srcPath = $path . '.twig';
+        $dstPath = self::DOTFILES_DIR . DIRECTORY_SEPARATOR . $path;
+
+        $dotfile = $this->twig()->render(
+            $srcPath,
+            $this->config()->getConfigOptions($name)
+        );
+
+        file_put_contents($dstPath, $dotfile);
+    }
+
+    /**
+     * @return ConfigLoaderInterface
+     */
+    private function config()
+    {
+        if(!$this->config)
+        {
+            $this->config = new IniConfigLoader(self::CONFIG_PATH);
+        }
+
+        return $this->config;
     }
 
     /**
