@@ -44,7 +44,18 @@ class DotfileGenerator
     private function renderDotfile($name, $path)
     {
         $srcPath = $path . '.twig';
-        $dstPath = self::DOTFILES_DIR . DIRECTORY_SEPARATOR . $path;
+        $dstPath = $this->config()->getOutputPath() . DIRECTORY_SEPARATOR . $path;
+
+        # region create dir structure if not exists
+        $dstDir = explode(DIRECTORY_SEPARATOR, $dstPath);
+        array_pop($dstDir);
+        $dstDir = implode(DIRECTORY_SEPARATOR, $dstDir);
+
+        if(!is_dir($dstDir))
+        {
+            mkdir($dstDir, 0777, true);
+        }
+        # endregion
 
         $dotfile = $this->twig()->render(
             $srcPath,
