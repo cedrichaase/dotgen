@@ -5,7 +5,7 @@ use Twig_Environment;
 use Twig_Loader_Filesystem;
 use Twig_LoaderInterface;
 
-class TwigController
+class TwigTemplatingEngine
 {
     const BASE_DIR = __DIR__ . '/../../../..';
 

@@ -3,7 +3,7 @@ namespace cedrichaase\DotGen\DotfileGenerator;
 
 use cedrichaase\DotGen\ConfigLoader\ConfigLoaderInterface;
 use cedrichaase\DotGen\ConfigLoader\IniConfigLoader;
-use cedrichaase\DotGen\TemplatingEngine\TwigController;
+use cedrichaase\DotGen\TemplatingEngine\TwigTemplatingEngine;
 
 /**
  * Class DotfileGenerator
@@ -19,7 +19,7 @@ class DotfileGenerator
     const CONFIG_PATH = self::BASE_DIR . '/config/config.ini';
 
     /**
-     * @var TwigController
+     * @var TwigTemplatingEngine
      */
     private $twig;
 
@@ -86,13 +86,13 @@ class DotfileGenerator
     }
 
     /**
-     * @return TwigController
+     * @return TwigTemplatingEngine
      */
     private function twig()
     {
         if(!$this->twig)
         {
-            $this->twig = new TwigController();
+            $this->twig = new TwigTemplatingEngine();
         }
         
         return $this->twig;
