@@ -5,7 +5,7 @@ use Twig_Environment;
 use Twig_Loader_Filesystem;
 use Twig_LoaderInterface;
 
-class TwigTemplatingEngine
+class TwigTemplatingEngine implements TemplatingEngineInterface
 {
     const BASE_DIR = __DIR__ . '/../../../..';
 
@@ -26,12 +26,9 @@ class TwigTemplatingEngine
     private $env;
 
     /**
-     * @param $name
-     * @param $context
-     *
-     * @return string
+     * @inheritdoc
      */
-    public function render($name, $context)
+    public function render(string $name, array $context): string
     {
         return $this->env()->render($name, $context);
     }
