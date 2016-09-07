@@ -33,7 +33,7 @@ class IniConfigLoader implements ConfigLoaderInterface
     /**
      * IniConfigLoader constructor.
      *
-     * @param $configFilePath
+     * @param string $configFilePath
      */
     public function __construct($configFilePath)
     {
