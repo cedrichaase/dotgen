@@ -29,7 +29,8 @@ class DotGen
         $loader = ConfigLoaderFactory::createFromFile($resource);
         
         $engineKey = $loader->getTemplatingEngine();
-        $engine = TemplatingEngineFactory::createFromEngineKey($engineKey);
+        $templateDir = $loader->getInputPath();
+        $engine = TemplatingEngineFactory::createFromEngineKeyAndTemplateDir($engineKey, $templateDir);
         
         $this->generator = new DotfileGenerator($loader, $engine);
     }
