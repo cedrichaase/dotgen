@@ -13,6 +13,11 @@ use Twig_LoaderInterface;
 class TwigTemplatingEngine implements TemplatingEngineInterface
 {
     /**
+     * File extension for twig templates
+     */
+    const FILE_EXTENSION = 'twig';
+
+    /**
      * @var Twig_LoaderInterface
      */
     private $loader;
@@ -44,5 +49,16 @@ class TwigTemplatingEngine implements TemplatingEngineInterface
     public function render(string $name, array $context): string
     {
         return $this->env->render($name, $context);
+    }
+
+    /**
+     * Returns the file extension for files that
+     * are written for this templating engine
+     *
+     * @return string
+     */
+    public function getFileExtension(): string
+    {
+        return self::FILE_EXTENSION;
     }
 }
