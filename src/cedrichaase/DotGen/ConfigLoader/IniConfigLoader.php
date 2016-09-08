@@ -60,8 +60,8 @@ class IniConfigLoader implements ConfigLoaderInterface
     public function getConfigOptions($name)
     {
         return array_merge(
-            $this->config[$name],
-            $this->config[self::CONFIG_SECTION_GLOBAL]
+            $this->config[self::CONFIG_SECTION_GLOBAL],
+            $this->config[$name]
         );
     }
 
