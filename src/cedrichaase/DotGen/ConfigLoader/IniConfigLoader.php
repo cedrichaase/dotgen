@@ -8,8 +8,6 @@ namespace cedrichaase\DotGen\ConfigLoader;
  */
 class IniConfigLoader implements ConfigLoaderInterface
 {
-    const DIR_BASE = __DIR__ . '/../../../..';
-
     /**
      * The identifier of the global config section
      */
@@ -43,6 +41,11 @@ class IniConfigLoader implements ConfigLoaderInterface
     private $config;
 
     /**
+     * @var string
+     */
+    private $baseDir;
+
+    /**
      * IniConfigLoader constructor.
      *
      * @param string $configFilePath
@@ -50,6 +53,12 @@ class IniConfigLoader implements ConfigLoaderInterface
     public function __construct($configFilePath)
     {
         $this->config = parse_ini_file($configFilePath, true);
+
+        $path = realpath($configFilePath);
+        $path = explode(DIRECTORY_SEPARATOR, $path);
+        array_pop($path);
+        $path = implode(DIRECTORY_SEPARATOR, $path);
+        $this->baseDir = $path;
     }
 
     /**
@@ -100,7 +109,7 @@ class IniConfigLoader implements ConfigLoaderInterface
     public function getOutputPath()
     {
         $relative = $this->getGlobal(self::CONFIG_KEY_OUTPUT_PATH);
-        return self::DIR_BASE . DIRECTORY_SEPARATOR . $relative;
+        return $this->baseDir . DIRECTORY_SEPARATOR . $relative;
     }
 
     /**
@@ -111,7 +120,7 @@ class IniConfigLoader implements ConfigLoaderInterface
     public function getInputPath()
     {
         $relative = $this->getGlobal(self::CONFIG_KEY_INPUT_PATH);
-        return self::DIR_BASE . DIRECTORY_SEPARATOR . $relative;
+        return $this->baseDir . DIRECTORY_SEPARATOR . $relative;
     }
 
     /**
