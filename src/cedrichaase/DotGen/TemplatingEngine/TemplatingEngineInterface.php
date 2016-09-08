@@ -20,4 +20,12 @@ interface TemplatingEngineInterface
      * @return string
      */
     public function render(string $path, array $data): string;
+
+    /**
+     * Returns the file extension for files that
+     * are written for this templating engine
+     *
+     * @return string
+     */
+    public function getFileExtension(): string;
 }
