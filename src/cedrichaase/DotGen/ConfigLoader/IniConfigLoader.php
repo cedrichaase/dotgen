@@ -1,5 +1,6 @@
 <?php
 namespace cedrichaase\DotGen\ConfigLoader;
+use cedrichaase\DotGen\File\HandlesFilesystemTrait;
 
 /**
  * Class IniConfigLoader
@@ -8,6 +9,8 @@ namespace cedrichaase\DotGen\ConfigLoader;
  */
 class IniConfigLoader implements ConfigLoaderInterface
 {
+    use HandlesFilesystemTrait;
+
     /**
      * The identifier of the global config section
      */
@@ -52,13 +55,11 @@ class IniConfigLoader implements ConfigLoaderInterface
      */
     public function __construct($configFilePath)
     {
-        $this->config = parse_ini_file($configFilePath, true);
-
         $path = realpath($configFilePath);
-        $path = explode(DIRECTORY_SEPARATOR, $path);
-        array_pop($path);
-        $path = implode(DIRECTORY_SEPARATOR, $path);
-        $this->baseDir = $path;
+        self::assertFileExists($path);
+
+        $this->config = parse_ini_file($configFilePath, true);
+        $this->baseDir = dirname($path);
     }
 
     /**
