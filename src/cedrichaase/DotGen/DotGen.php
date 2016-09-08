@@ -3,7 +3,7 @@ namespace cedrichaase\DotGen;
 
 use cedrichaase\DotGen\ConfigLoader\ConfigLoaderFactory;
 use cedrichaase\DotGen\DotfileGenerator\DotfileGenerator;
-use cedrichaase\DotGen\FileType\GuessesFileTypeTrait;
+use cedrichaase\DotGen\File\GuessesFileTypeTrait;
 use cedrichaase\DotGen\TemplatingEngine\TemplatingEngineFactory;
 
 /**

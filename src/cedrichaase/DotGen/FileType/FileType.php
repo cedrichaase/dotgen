@@ -1,5 +1,5 @@
 <?php
-namespace cedrichaase\DotGen\FileType;
+namespace cedrichaase\DotGen\File;
 
 /**
  * Class FileType
