@@ -80,7 +80,7 @@ Pre-compiled phar packages are available [here](https://github.com/cedrichaase/d
 
 Download one, then
 ```
-$ php dotgen.phar path/to/config.ini
+$ php dotgen.phar render path/to/config.ini
 ```
 
 Command line interface is subject to change :)
@@ -97,7 +97,7 @@ $ cd dotgen
 
 $ composer install
 
-$ bin/dotgen path/to/config.ini
+$ bin/dotgen render path/to/config.ini
 ```
 
 You can also create a single-file executable phar package using
