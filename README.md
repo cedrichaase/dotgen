@@ -76,6 +76,20 @@ scope.
 
 ### download and run dotgen
 
+Pre-compiled phar packages are available [here](https://github.com/cedrichaase/dotgen/releases).
+
+Download one, then
+```
+$ php dotgen.phar path/to/config.ini
+```
+
+Command line interface is subject to change :)
+
+### roll your own
+
+To get started developing, clone the repo, [get composer](https://getcomposer.org/)
+if you haven't already, `composer install` the dependencies and you're good to go.
+
 ```
 $ git clone git@github.com:cedrichaase/dotgen.git
 
@@ -95,5 +109,4 @@ $ cd dotgen
 $ wget https://github.com/clue/phar-composer/releases/download/v1.0.0/phar-composer.phar
 
 $ php phar-composer.phar build
-
 ```
