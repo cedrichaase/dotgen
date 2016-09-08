@@ -5,14 +5,13 @@ use Twig_Environment;
 use Twig_Loader_Filesystem;
 use Twig_LoaderInterface;
 
+/**
+ * Class TwigTemplatingEngine
+ *
+ * @package cedrichaase\DotGen\TemplatingEngine
+ */
 class TwigTemplatingEngine implements TemplatingEngineInterface
 {
-    const BASE_DIR = __DIR__ . '/../../../..';
-
-    const TWIG_BASE_DIR = self::BASE_DIR . '/twig';
-
-    const TEMPLATE_DIR = self::TWIG_BASE_DIR . '/templates';
-
     /**
      * @var Twig_LoaderInterface
      */
@@ -24,30 +23,26 @@ class TwigTemplatingEngine implements TemplatingEngineInterface
     private $env;
 
     /**
+     * Base path for templates
+     * 
+     * @var string
+     */
+    private $templateDir;
+
+    public function __construct(string $templateDir)
+    {
+        $this->templateDir = $templateDir;
+        $this->loader = new Twig_Loader_Filesystem($this->templateDir);
+        $this->env = new Twig_Environment($this->loader, [
+            'cache' => false,
+        ]);
+    }
+
+    /**
      * @inheritdoc
      */
     public function render(string $name, array $context): string
     {
-        return $this->env()->render($name, $context);
-    }
-
-    /**
-     * @return Twig_Environment
-     */
-    private function env()
-    {
-        if(!$this->loader)
-        {
-            $this->loader = new Twig_Loader_Filesystem(self::TEMPLATE_DIR);
-        }
-
-        if(!$this->env)
-        {
-            $this->env = new Twig_Environment($this->loader, [
-                'cache' => false,
-            ]);
-        }
-
-        return $this->env;
+        return $this->env->render($name, $context);
     }
 }
