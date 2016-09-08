@@ -58,7 +58,7 @@ class DotfileGenerator
      */
     private function renderDotfile($name, $path)
     {
-        $srcPath = $path . '.twig';
+        $srcPath = $path . '.' . $this->engine->getFileExtension();
         $dstPath = $this->config->getOutputPath() . DIRECTORY_SEPARATOR . $path;
 
         self::createPathIfNotExists($dstPath);
