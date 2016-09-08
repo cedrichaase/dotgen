@@ -10,7 +10,7 @@ trait HandlesFilesystemTrait
     protected static function createPathIfNotExists(string $path)
     {
         $dir = dirname(realpath($path));
-        if(!is_dir($path))
+        if($dir && !is_dir($dir))
         {
             mkdir($dir, 0777, true);
         }
