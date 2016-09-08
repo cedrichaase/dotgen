@@ -2,6 +2,7 @@
 namespace cedrichaase\DotGen\DotfileGenerator;
 
 use cedrichaase\DotGen\ConfigLoader\ConfigLoaderInterface;
+use cedrichaase\DotGen\File\HandlesFilesystemTrait;
 use cedrichaase\DotGen\TemplatingEngine\TemplatingEngineInterface;
 
 /**
@@ -11,6 +12,8 @@ use cedrichaase\DotGen\TemplatingEngine\TemplatingEngineInterface;
  */
 class DotfileGenerator
 {
+    use HandlesFilesystemTrait;
+    
     /**
      * @var TemplatingEngineInterface
      */
@@ -58,16 +61,7 @@ class DotfileGenerator
         $srcPath = $path . '.twig';
         $dstPath = $this->config->getOutputPath() . DIRECTORY_SEPARATOR . $path;
 
-        # region create dir structure if not exists
-        $dstDir = explode(DIRECTORY_SEPARATOR, $dstPath);
-        array_pop($dstDir);
-        $dstDir = implode(DIRECTORY_SEPARATOR, $dstDir);
-
-        if(!is_dir($dstDir))
-        {
-            mkdir($dstDir, 0777, true);
-        }
-        # endregion
+        self::createPathIfNotExists($dstPath);
 
         $dotfile = $this->engine->render(
             $srcPath,
