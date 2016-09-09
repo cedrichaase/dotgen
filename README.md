@@ -83,5 +83,17 @@ $ cd dotgen
 
 $ composer install
 
-$ php src/generator.php path/to/config.ini
+$ bin/dotgen path/to/config.ini
+```
+
+You can also create a single-file executable phar package using
+[clue/phar-composer](https://github.com/clue/phar-composer):
+
+```
+$ cd dotgen
+
+$ wget https://github.com/clue/phar-composer/releases/download/v1.0.0/phar-composer.phar
+
+$ php phar-composer.phar build
+
 ```
