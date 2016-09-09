@@ -4,7 +4,6 @@
 require __DIR__ . '/../vendor/autoload.php';
 
 use cedrichaase\DotGen\Console\Application;
-use cedrichaase\DotGen\Console\Command\RenderCommand;
 
 $app = new Application();
 $app->run();
