@@ -10,6 +10,11 @@ use DotGen\TemplatingEngine\Engine;
 class IniConfigLoader implements ConfigLoaderInterface
 {
     /**
+     * Use the path of the config file as default
+     */
+    const PATH_DEFAULT = '.';
+
+    /**
      * The identifier of the global config section
      */
     const CONFIG_SECTION_GLOBAL = 'global';
@@ -108,7 +113,7 @@ class IniConfigLoader implements ConfigLoaderInterface
      */
     public function getOutputPath()
     {
-        $relative = $this->getGlobal(self::CONFIG_KEY_OUTPUT_PATH);
+        $relative = $this->getGlobal(self::CONFIG_KEY_OUTPUT_PATH) ?? self::PATH_DEFAULT;
         return $this->baseDir . DIRECTORY_SEPARATOR . $relative;
     }
 
@@ -119,7 +124,7 @@ class IniConfigLoader implements ConfigLoaderInterface
      */
     public function getInputPath()
     {
-        $relative = $this->getGlobal(self::CONFIG_KEY_INPUT_PATH);
+        $relative = $this->getGlobal(self::CONFIG_KEY_INPUT_PATH) ?? self::PATH_DEFAULT;
         return $this->baseDir . DIRECTORY_SEPARATOR . $relative;
     }
 
