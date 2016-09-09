@@ -13,23 +13,23 @@ interface ConfigLoaderInterface
     public function getConfigOptions($name);
 
     /**
-     * Returns the path of the dotfile for given config name
+     * Returns the file paths associated with given config section
      *
-     * @param string $name
-     *
-     * @return string[]
-     */
-    public function getDotfilePathsByName($name);
-
-    /**
-     * Returns the names of all dotfiles with available configuration
+     * @param string $section
      *
      * @return string[]
      */
-    public function getDotfileNames();
+    public function getFilePathsBySection($section);
 
     /**
-     * Returns the output path for rendered dotfiles
+     * Returns the names of all file names that are associated with a section
+     *
+     * @return string[]
+     */
+    public function getFileNames();
+
+    /**
+     * Returns the output path for rendered files
      *
      * @return string
      */

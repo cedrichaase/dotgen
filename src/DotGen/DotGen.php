@@ -46,11 +46,11 @@ class DotGen
     }
 
     /**
-     * Generates dotfiles
+     * Renders all text files
      */
-    public function generate()
+    public function render()
     {
-        $this->generator->renderDotfiles();
+        $this->generator->render();
     }
 
     /**

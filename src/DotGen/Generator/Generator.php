@@ -45,11 +45,11 @@ class Generator
     }
 
     /**
-     * render ALL the dotfiles!
+     * render ALL the files!
      */
-    public function renderDotfiles()
+    public function render()
     {
-        $names = $this->config->getDotfileNames();
+        $names = $this->config->getFileNames();
 
         $this->log->info('Begin rendering text files', [
             'count' => count($names),
@@ -58,10 +58,10 @@ class Generator
 
         foreach($names as $i => $name)
         {
-            $paths = $this->config->getDotfilePathsByName($name);
+            $paths = $this->config->getFilePathsBySection($name);
             foreach($paths as $j => $path)
             {
-                $this->renderDotfile($name, $path);
+                $this->renderFile($name, $path);
             }
         }
 
@@ -75,7 +75,7 @@ class Generator
      * @param string $name
      * @param string $path
      */
-    private function renderDotfile($name, $path)
+    private function renderFile($name, $path)
     {
         $srcPath = $path . '.' . $this->engine->getFileExtension();
         $dstPath = $this->config->getOutputPath() . DIRECTORY_SEPARATOR . $path;
@@ -88,12 +88,12 @@ class Generator
 
         self::createPathIfNotExists($dstPath);
 
-        $dotfile = $this->engine->render(
+        $contents = $this->engine->render(
             $srcPath,
             $this->config->getConfigOptions($name)
         );
 
-        file_put_contents($dstPath, $dotfile);
+        file_put_contents($dstPath, $contents);
     }
 
     /**

@@ -65,6 +65,6 @@ class RenderCommand extends Command
             $dotgen->setLogger($logger);
         }
 
-        $dotgen->generate();
+        $dotgen->render();
     }
 }

@@ -16,22 +16,23 @@ class IniConfigLoader implements ConfigLoaderInterface
     /**
      * The config key for defining the render output path
      */
-    const CONFIG_KEY_OUTPUT_PATH = 'output_dir';
+    const CONFIG_KEY_OUTPUT_PATH = '__target_dir';
 
     /**
      * The config key for defining the path to read templates from
      */
-    const CONFIG_KEY_INPUT_PATH = 'template_dir';
+    const CONFIG_KEY_INPUT_PATH = '__templates_dir';
 
     /**
      * Config key for defining which templating engine to use
      */
-    const CONFIG_KEY_TEMPLATING_ENGINE = 'template_engine';
+    const CONFIG_KEY_TEMPLATING_ENGINE = '__engine';
 
     /**
-     * The configuration key for defining the dotfile path
+     * The configuration key for defining the paths to render
+     *
      */
-    const CONFIG_KEY_DOTFILE_PATH = 'config_file_paths';
+    const CONFIG_KEY_FILE_PATHS = '__files';
 
     /**
      * The entire ini file parsed to an array
@@ -74,23 +75,24 @@ class IniConfigLoader implements ConfigLoaderInterface
     }
 
     /**
-     * Returns the path of the dotfile for given config name
+     * Returns the file paths associated with given config section
      *
-     * @param string $name
+     * @param string $section
      *
      * @return string[]
      */
-    public function getDotfilePathsByName($name)
+    public function getFilePathsBySection($section)
     {
-        return $this->getConfigOptions($name)[self::CONFIG_KEY_DOTFILE_PATH];
+        return $this->getConfigOptions($section)[self::CONFIG_KEY_FILE_PATHS];
     }
 
+
     /**
-     * Returns the names of all dotfiles with available configuration
+     * Returns the names of all file names that are associated with a section
      *
      * @return string[]
      */
-    public function getDotfileNames()
+    public function getFileNames()
     {
         $config = $this->config;
         unset($config[self::CONFIG_SECTION_GLOBAL]);
@@ -99,7 +101,7 @@ class IniConfigLoader implements ConfigLoaderInterface
     }
 
     /**
-     * Returns the output path for rendered dotfiles
+     * Returns the output path for rendered files
      *
      * @return string
      */
