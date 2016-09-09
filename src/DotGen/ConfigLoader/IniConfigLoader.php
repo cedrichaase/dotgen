@@ -1,6 +1,5 @@
 <?php
 namespace DotGen\ConfigLoader;
-use DotGen\File\HandlesFilesystemTrait;
 
 /**
  * Class IniConfigLoader
@@ -9,8 +8,6 @@ use DotGen\File\HandlesFilesystemTrait;
  */
 class IniConfigLoader implements ConfigLoaderInterface
 {
-    use HandlesFilesystemTrait;
-
     /**
      * The identifier of the global config section
      */
@@ -51,14 +48,13 @@ class IniConfigLoader implements ConfigLoaderInterface
     /**
      * IniConfigLoader constructor.
      *
-     * @param string $configFilePath
+     * @param string $filePath
      */
-    public function __construct($configFilePath)
+    public function __construct($filePath)
     {
-        $path = realpath($configFilePath);
-        self::assertFileExists($path);
+        $path = realpath($filePath);
 
-        $this->config = parse_ini_file($configFilePath, true);
+        $this->config = parse_ini_file($path, true);
         $this->baseDir = dirname($path);
     }
 
