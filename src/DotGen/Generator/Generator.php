@@ -58,7 +58,7 @@ class Generator
 
         foreach($names as $i => $name)
         {
-            $paths = $this->config->getFilePathsBySection($name);
+            $paths = $this->config->getFilePathsForCollection($name);
             foreach($paths as $j => $path)
             {
                 $this->renderFile($name, $path);

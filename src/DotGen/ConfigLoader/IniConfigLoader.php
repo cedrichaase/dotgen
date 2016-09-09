@@ -81,15 +81,15 @@ class IniConfigLoader implements ConfigLoaderInterface
     }
 
     /**
-     * Returns the file paths associated with given config section
+     * Returns the file paths associated with given collection
      *
-     * @param string $section
+     * @param string $collection
      *
      * @return string[]
      */
-    public function getFilePathsBySection($section)
+    public function getFilePathsForCollection($collection)
     {
-        return $this->getConfigOptions($section)[self::CONFIG_KEY_FILE_PATHS];
+        return $this->getConfigOptions($collection)[self::CONFIG_KEY_FILE_PATHS];
     }
 
 

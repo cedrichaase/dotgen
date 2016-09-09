@@ -15,11 +15,11 @@ interface ConfigLoaderInterface
     /**
      * Returns the file paths associated with given config section
      *
-     * @param string $section
+     * @param string $collection
      *
      * @return string[]
      */
-    public function getFilePathsBySection($section);
+    public function getFilePathsForCollection($collection);
 
     /**
      * Returns the names of all file names that are associated with a section
