@@ -1,7 +1,7 @@
 <?php
-namespace DotGen\ConfigLoader;
+namespace DotGen\ConfigLoader\Resource;
 
 interface ResourceInterface
 {
-    
+    // no-op
 }
