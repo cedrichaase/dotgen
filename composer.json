@@ -1,5 +1,5 @@
 {
-    "name": "cedrichaase/dotfiles-template",
+    "name": "cedrichaase/dotgen",
     "require": {
         "twig/twig": "^1.24",
         "symfony/console": "^3.1",
@@ -17,5 +17,6 @@
         "psr-0": {
             "cedrichaase\\DotGen\\": ["src/", "test/"]
         }
-    }
+    },
+    "bin": ["bin/dotgen"]
 }
