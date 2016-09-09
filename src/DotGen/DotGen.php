@@ -2,6 +2,7 @@
 namespace DotGen;
 
 use DotGen\ConfigLoader\ConfigLoaderFactory;
+use DotGen\ConfigLoader\Resource\ResourceInterface;
 use DotGen\Generator\Generator;
 use DotGen\File\GuessesFileTypeTrait;
 use DotGen\TemplatingEngine\TemplatingEngineFactory;
@@ -29,13 +30,13 @@ class DotGen
     /**
      * DotGen constructor.
      *
-     * @param string $resource
+     * @param ResourceInterface $resource
      */
-    public function __construct($resource)
+    public function __construct(ResourceInterface $resource)
     {
         $this->log = new NullLogger();
 
-        $loader = ConfigLoaderFactory::createFromFile($resource);
+        $loader = ConfigLoaderFactory::createFromResource($resource);
         
         $engineKey = $loader->getTemplatingEngine();
         $templateDir = $loader->getInputPath();
