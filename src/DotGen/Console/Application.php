@@ -14,7 +14,7 @@ class Application extends BaseApplication
 {
     const APP_NAME = 'dotgen';
 
-    const APP_VERSION = '0.1.1';
+    const APP_VERSION = '0.3.0';
 
     /**
      * Application constructor.
