@@ -61,7 +61,7 @@ class IniConfigLoader implements ConfigLoaderInterface
     {
         $path = realpath($filePath);
 
-        $this->config = parse_ini_file($path, true);
+        $this->config = parse_ini_file($path, true, INI_SCANNER_TYPED);
         $this->baseDir = dirname($path);
     }
 
