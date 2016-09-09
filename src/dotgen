@@ -7,5 +7,4 @@ use cedrichaase\DotGen\Console\Application;
 use cedrichaase\DotGen\Console\Command\RenderCommand;
 
 $app = new Application();
-$app->add(new RenderCommand());
 $app->run();
