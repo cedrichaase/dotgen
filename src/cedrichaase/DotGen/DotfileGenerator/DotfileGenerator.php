@@ -50,6 +50,12 @@ class DotfileGenerator
     public function renderDotfiles()
     {
         $names = $this->config->getDotfileNames();
+
+        $this->log->info('Begin rendering text files', [
+            'count' => count($names),
+            'time' => microtime(true),
+        ]);
+
         foreach($names as $i => $name)
         {
             $paths = $this->config->getDotfilePathsByName($name);
@@ -58,6 +64,11 @@ class DotfileGenerator
                 $this->renderDotfile($name, $path);
             }
         }
+
+        $this->log->info('Done rendering text files', [
+            'count' => count($names),
+            'time' => microtime(true),
+        ]);
     }
 
     /**
@@ -68,6 +79,12 @@ class DotfileGenerator
     {
         $srcPath = $path . '.' . $this->engine->getFileExtension();
         $dstPath = $this->config->getOutputPath() . DIRECTORY_SEPARATOR . $path;
+
+        $this->log->debug('Rendering text file', [
+            'name' => $name,
+            'src_path' => $srcPath,
+            'dst_path' => $dstPath,
+        ]);
 
         self::createPathIfNotExists($dstPath);
 
