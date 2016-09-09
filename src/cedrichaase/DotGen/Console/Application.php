@@ -1,12 +1,9 @@
 <?php
+namespace cedrichaase\DotGen\Console;
 
-/**
- * Created by PhpStorm.
- * User: cedric
- * Date: 9/9/16
- * Time: 1:38 AM
- */
-class Application
+use Symfony\Component\Console\Application as BaseApplication;
+
+class Application extends BaseApplication
 {
-
+    
 }
