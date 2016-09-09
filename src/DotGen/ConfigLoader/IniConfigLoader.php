@@ -1,5 +1,6 @@
 <?php
 namespace DotGen\ConfigLoader;
+use DotGen\TemplatingEngine\Engine;
 
 /**
  * Class IniConfigLoader
@@ -131,7 +132,7 @@ class IniConfigLoader implements ConfigLoaderInterface
      */
     public function getTemplatingEngine()
     {
-        return $this->getGlobal(self::CONFIG_KEY_TEMPLATING_ENGINE);
+        return $this->getGlobal(self::CONFIG_KEY_TEMPLATING_ENGINE) ?? Engine::ENGINE_DEFAULT;
     }
 
     /**
@@ -142,6 +143,6 @@ class IniConfigLoader implements ConfigLoaderInterface
      */
     private function getGlobal($key)
     {
-        return $this->config[self::CONFIG_SECTION_GLOBAL][$key];
+        return $this->config[self::CONFIG_SECTION_GLOBAL][$key] ?? null;
     }
 }
