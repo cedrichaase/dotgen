@@ -12,12 +12,16 @@ use Symfony\Component\Console\Command\Command;
  */
 class Application extends BaseApplication
 {
+    const APP_NAME = 'dotgen';
+
+    const APP_VERSION = '0.1.1';
+
     /**
      * Application constructor.
      */
     public function __construct()
     {
-        parent::__construct('dotgen', '0.1.1');
+        parent::__construct(self::APP_NAME, self::APP_VERSION);
 
         $this->addCommands($this->commands());
     }

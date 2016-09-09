@@ -2,6 +2,8 @@
 namespace cedrichaase\DotGen\Console\Command;
 
 use cedrichaase\DotGen\DotGen;
+use Monolog\Logger;
+use Symfony\Bridge\Monolog\Handler\ConsoleHandler;
 use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Input\InputArgument;
 use Symfony\Component\Console\Input\InputInterface;
@@ -9,7 +11,20 @@ use Symfony\Component\Console\Output\OutputInterface;
 
 class RenderCommand extends Command
 {
+    /**
+     * Command name
+     */
+    const NAME = 'render';
+
+    /**
+     * config file argument
+     */
     const ARG_CONFIG_INI = 'ini';
+
+    /**
+     * verbose option
+     */
+    const OPT_VERBOSE = 'verbose';
 
     protected function configure()
     {
@@ -39,6 +54,15 @@ class RenderCommand extends Command
         }
 
         $dotgen = new DotGen($path);
+
+        $verbose  = $input->getOption(self::OPT_VERBOSE);
+        if($verbose)
+        {
+            $logger = new Logger(self::NAME);
+            $logger->pushHandler(new ConsoleHandler($output));
+            $dotgen->setLogger($logger);
+        }
+
         $dotgen->generate();
     }
 }
