@@ -4,6 +4,8 @@ namespace cedrichaase\DotGen\DotfileGenerator;
 use cedrichaase\DotGen\ConfigLoader\ConfigLoaderInterface;
 use cedrichaase\DotGen\File\HandlesFilesystemTrait;
 use cedrichaase\DotGen\TemplatingEngine\TemplatingEngineInterface;
+use Psr\Log\LoggerInterface;
+use Psr\Log\NullLogger;
 
 /**
  * Class DotfileGenerator
@@ -25,6 +27,11 @@ class DotfileGenerator
     private $config;
 
     /**
+     * @var LoggerInterface
+     */
+    private $log;
+
+    /**
      * DotfileGenerator constructor.
      *
      * @param ConfigLoaderInterface $loader
@@ -34,6 +41,7 @@ class DotfileGenerator
     {
         $this->config = $loader;
         $this->engine = $engine;
+        $this->log = new NullLogger();
     }
 
     /**
@@ -69,5 +77,13 @@ class DotfileGenerator
         );
 
         file_put_contents($dstPath, $dotfile);
+    }
+
+    /**
+     * @param LoggerInterface $logger
+     */
+    public function setLogger(LoggerInterface $logger)
+    {
+        $this->log = $logger;
     }
 }

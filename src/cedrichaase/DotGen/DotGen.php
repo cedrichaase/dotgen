@@ -5,6 +5,8 @@ use cedrichaase\DotGen\ConfigLoader\ConfigLoaderFactory;
 use cedrichaase\DotGen\DotfileGenerator\DotfileGenerator;
 use cedrichaase\DotGen\File\GuessesFileTypeTrait;
 use cedrichaase\DotGen\TemplatingEngine\TemplatingEngineFactory;
+use Psr\Log\LoggerInterface;
+use Psr\Log\NullLogger;
 
 /**
  * Class DotGen
@@ -20,12 +22,19 @@ class DotGen
     private $generator;
 
     /**
+     * @var LoggerInterface
+     */
+    private $log;
+
+    /**
      * DotGen constructor.
      *
      * @param string $resource
      */
     public function __construct($resource)
     {
+        $this->log = new NullLogger();
+
         $loader = ConfigLoaderFactory::createFromFile($resource);
         
         $engineKey = $loader->getTemplatingEngine();
@@ -41,5 +50,14 @@ class DotGen
     public function generate()
     {
         $this->generator->renderDotfiles();
+    }
+
+    /**
+     * @param LoggerInterface $logger
+     */
+    public function setLogger(LoggerInterface $logger)
+    {
+        $this->log = $logger;
+        $this->generator->setLogger($logger);
     }
 }
