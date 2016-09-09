@@ -1,5 +1,5 @@
 <?php
-namespace DotGen\DotfileGenerator;
+namespace DotGen\Generator;
 
 use DotGen\ConfigLoader\ConfigLoaderInterface;
 use DotGen\File\HandlesFilesystemTrait;
@@ -8,11 +8,11 @@ use Psr\Log\LoggerInterface;
 use Psr\Log\NullLogger;
 
 /**
- * Class DotfileGenerator
+ * Class Generator
  *
- * @package cedrichaase\DotGen\DotfileGenerator
+ * @package cedrichaase\DotGen\Generator
  */
-class DotfileGenerator
+class Generator
 {
     use HandlesFilesystemTrait;
     
@@ -32,7 +32,7 @@ class DotfileGenerator
     private $log;
 
     /**
-     * DotfileGenerator constructor.
+     * Generator constructor.
      *
      * @param ConfigLoaderInterface $loader
      * @param TemplatingEngineInterface $engine

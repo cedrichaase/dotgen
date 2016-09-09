@@ -2,7 +2,7 @@
 namespace DotGen;
 
 use DotGen\ConfigLoader\ConfigLoaderFactory;
-use DotGen\DotfileGenerator\DotfileGenerator;
+use DotGen\Generator\Generator;
 use DotGen\File\GuessesFileTypeTrait;
 use DotGen\TemplatingEngine\TemplatingEngineFactory;
 use Psr\Log\LoggerInterface;
@@ -17,7 +17,7 @@ class DotGen
     use GuessesFileTypeTrait;
 
     /**
-     * @var DotfileGenerator
+     * @var Generator
      */
     private $generator;
 
@@ -41,7 +41,7 @@ class DotGen
         $templateDir = $loader->getInputPath();
         $engine = TemplatingEngineFactory::createFromEngineKeyAndTemplateDir($engineKey, $templateDir);
         
-        $this->generator = new DotfileGenerator($loader, $engine);
+        $this->generator = new Generator($loader, $engine);
     }
 
     /**
