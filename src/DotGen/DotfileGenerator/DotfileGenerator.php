@@ -1,9 +1,9 @@
 <?php
-namespace cedrichaase\DotGen\DotfileGenerator;
+namespace DotGen\DotfileGenerator;
 
-use cedrichaase\DotGen\ConfigLoader\ConfigLoaderInterface;
-use cedrichaase\DotGen\File\HandlesFilesystemTrait;
-use cedrichaase\DotGen\TemplatingEngine\TemplatingEngineInterface;
+use DotGen\ConfigLoader\ConfigLoaderInterface;
+use DotGen\File\HandlesFilesystemTrait;
+use DotGen\TemplatingEngine\TemplatingEngineInterface;
 use Psr\Log\LoggerInterface;
 use Psr\Log\NullLogger;
 

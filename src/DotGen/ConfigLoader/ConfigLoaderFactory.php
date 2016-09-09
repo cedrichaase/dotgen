@@ -1,9 +1,9 @@
 <?php
-namespace cedrichaase\DotGen\ConfigLoader;
+namespace DotGen\ConfigLoader;
 
-use cedrichaase\DotGen\File\GuessesFileTypeTrait;
-use cedrichaase\DotGen\File\UnknownFileTypeException;
-use cedrichaase\DotGen\File\FileType;
+use DotGen\File\GuessesFileTypeTrait;
+use DotGen\File\UnknownFileTypeException;
+use DotGen\File\FileType;
 
 /**
  * Class ConfigLoaderFactory

@@ -1,6 +1,6 @@
 <?php
-namespace cedrichaase\DotGen\ConfigLoader;
-use cedrichaase\DotGen\File\HandlesFilesystemTrait;
+namespace DotGen\ConfigLoader;
+use DotGen\File\HandlesFilesystemTrait;
 
 /**
  * Class IniConfigLoader

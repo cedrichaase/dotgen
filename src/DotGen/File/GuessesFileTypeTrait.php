@@ -1,5 +1,5 @@
 <?php
-namespace cedrichaase\DotGen\File;
+namespace DotGen\File;
 
 trait GuessesFileTypeTrait
 {

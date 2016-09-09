@@ -1,5 +1,5 @@
 <?php
-namespace cedrichaase\DotGen\TemplatingEngine;
+namespace DotGen\TemplatingEngine;
 
 use Twig_Environment;
 use Twig_Loader_Filesystem;

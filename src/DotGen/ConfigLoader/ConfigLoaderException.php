@@ -1,5 +1,5 @@
 <?php
-namespace cedrichaase\DotGen\ConfigLoader;
+namespace DotGen\ConfigLoader;
 
 /**
  * Class ConfigLoaderException

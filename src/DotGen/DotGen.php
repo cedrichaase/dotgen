@@ -1,10 +1,10 @@
 <?php
-namespace cedrichaase\DotGen;
+namespace DotGen;
 
-use cedrichaase\DotGen\ConfigLoader\ConfigLoaderFactory;
-use cedrichaase\DotGen\DotfileGenerator\DotfileGenerator;
-use cedrichaase\DotGen\File\GuessesFileTypeTrait;
-use cedrichaase\DotGen\TemplatingEngine\TemplatingEngineFactory;
+use DotGen\ConfigLoader\ConfigLoaderFactory;
+use DotGen\DotfileGenerator\DotfileGenerator;
+use DotGen\File\GuessesFileTypeTrait;
+use DotGen\TemplatingEngine\TemplatingEngineFactory;
 use Psr\Log\LoggerInterface;
 use Psr\Log\NullLogger;
 

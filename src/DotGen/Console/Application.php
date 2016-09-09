@@ -1,7 +1,7 @@
 <?php
-namespace cedrichaase\DotGen\Console;
+namespace DotGen\Console;
 
-use cedrichaase\DotGen\Console\Command\RenderCommand;
+use DotGen\Console\Command\RenderCommand;
 use Symfony\Component\Console\Application as BaseApplication;
 use Symfony\Component\Console\Command\Command;
 

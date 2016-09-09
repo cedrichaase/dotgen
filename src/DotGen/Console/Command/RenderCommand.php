@@ -1,7 +1,7 @@
 <?php
-namespace cedrichaase\DotGen\Console\Command;
+namespace DotGen\Console\Command;
 
-use cedrichaase\DotGen\DotGen;
+use DotGen\DotGen;
 use Monolog\Logger;
 use Symfony\Bridge\Monolog\Handler\ConsoleHandler;
 use Symfony\Component\Console\Command\Command;

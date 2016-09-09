@@ -1,6 +1,6 @@
 <?php
 
-namespace cedrichaase\DotGen\File;
+namespace DotGen\File;
 
 
 class UnknownFileTypeException extends \Exception

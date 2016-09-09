@@ -1,5 +1,5 @@
 <?php
-namespace cedrichaase\DotGen\TemplatingEngine;
+namespace DotGen\TemplatingEngine;
 
 /**
  * Class Engine
