@@ -1,0 +1,38 @@
+<?php
+namespace DotGen\Config;
+
+/**
+ * Interface ResourceInterface
+ * 
+ * @package DotGen\Config
+ */
+interface ResourceInterface
+{
+    /**
+     * Return the collections managed by this resource
+     *
+     * @return Collection[]
+     */
+    public function getCollections();
+
+    /**
+     * Return the engine key of the engine to use for this resource
+     *
+     * @return string
+     */
+    public function getEngine();
+
+    /**
+     * Return the path to find templates in
+     *
+     * @return string
+     */
+    public function getInputPath();
+
+    /**
+     * Return the path to output rendered text files to
+     *
+     * @return string
+     */
+    public function getOutputPath();
+}
