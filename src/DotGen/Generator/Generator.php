@@ -90,7 +90,7 @@ class Generator
 
         $contents = $this->engine->render(
             $srcPath,
-            $this->config->getConfigOptions($name)
+            $this->config->getCollectionValues($name)
         );
 
         file_put_contents($dstPath, $contents);

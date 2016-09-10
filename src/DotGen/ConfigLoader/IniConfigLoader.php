@@ -68,15 +68,15 @@ class IniConfigLoader implements ConfigLoaderInterface
     /**
      * Returns the config options for the given config name
      *
-     * @param string $name
+     * @param string $collection
      *
      * @return array
      */
-    public function getConfigOptions($name)
+    public function getCollectionValues($collection)
     {
         return array_merge(
             $this->config[self::CONFIG_SECTION_GLOBAL],
-            $this->config[$name]
+            $this->config[$collection]
         );
     }
 
@@ -89,7 +89,7 @@ class IniConfigLoader implements ConfigLoaderInterface
      */
     public function getFilePathsForCollection($collection)
     {
-        return $this->getConfigOptions($collection)[self::CONFIG_KEY_FILE_PATHS];
+        return $this->getCollectionValues($collection)[self::CONFIG_KEY_FILE_PATHS];
     }
 
 

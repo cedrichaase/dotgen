@@ -6,14 +6,14 @@ interface ConfigLoaderInterface
     /**
      * Returns the config options for the given config name
      *
-     * @param string $name
+     * @param string $collection
      *
      * @return array
      */
-    public function getConfigOptions($name);
+    public function getCollectionValues($collection);
 
     /**
-     * Returns the file paths associated with given config section
+     * Returns the file paths associated with given collection
      *
      * @param string $collection
      *
