@@ -34,6 +34,11 @@ class TwigTemplatingEngine implements TemplatingEngineInterface
      */
     private $templateDir;
 
+    /**
+     * TwigTemplatingEngine constructor.
+     * 
+     * @param string $templateDir
+     */
     public function __construct(string $templateDir)
     {
         $this->templateDir = $templateDir;
