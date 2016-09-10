@@ -1,7 +1,7 @@
 <?php
 namespace DotGen\Console\Command;
 
-use DotGen\ConfigLoader\Resource\FileResource;
+use DotGen\Config\IniResource;
 use DotGen\DotGen;
 use Monolog\Logger;
 use Symfony\Bridge\Monolog\Handler\ConsoleHandler;
@@ -54,7 +54,7 @@ class RenderCommand extends Command
             $output->writeln('No valid source file specified');
         }
 
-        $resource = new FileResource($path);
+        $resource = new IniResource($path);
         $dotgen = new DotGen($resource);
 
         $verbose  = $input->getOption(self::OPT_VERBOSE);

@@ -30,4 +30,16 @@ trait HandlesFilesystemTrait
             throw new FileHandlingException('File does not exist: ' . $path);
         }
     }
+
+    /**
+     * Check if path is a relative path
+     *
+     * @param string $path
+     * @return bool
+     */
+    protected static function isRelativePath(string $path)
+    {
+        $beginsWith = '/';
+        return !(substr($path, 0, strlen($beginsWith)) === $beginsWith);
+    }
 }

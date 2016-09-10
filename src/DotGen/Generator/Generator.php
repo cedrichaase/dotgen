@@ -1,8 +1,11 @@
 <?php
 namespace DotGen\Generator;
 
-use DotGen\ConfigLoader\ConfigLoaderInterface;
+use DotGen\Config\Collection;
+use DotGen\Config\ResourceInterface;
 use DotGen\File\HandlesFilesystemTrait;
+use DotGen\TemplatingEngine\TemplatingEngineException;
+use DotGen\TemplatingEngine\TemplatingEngineFactory;
 use DotGen\TemplatingEngine\TemplatingEngineInterface;
 use Psr\Log\LoggerInterface;
 use Psr\Log\NullLogger;
@@ -22,9 +25,9 @@ class Generator
     private $engine;
 
     /**
-     * @var ConfigLoaderInterface
+     * @var ResourceInterface
      */
-    private $config;
+    private $resource;
 
     /**
      * @var LoggerInterface
@@ -34,51 +37,72 @@ class Generator
     /**
      * Generator constructor.
      *
-     * @param ConfigLoaderInterface $loader
-     * @param TemplatingEngineInterface $engine
+     * @param ResourceInterface $resource
+     *
+     * @throws TemplatingEngineException
      */
-    public function __construct(ConfigLoaderInterface $loader, TemplatingEngineInterface $engine)
+    public function __construct(ResourceInterface $resource)
     {
-        $this->config = $loader;
+        $engineKey = $resource->getEngine();
+        $templateDir = $resource->getOutputPath();
+
+        $engine = TemplatingEngineFactory::createFromEngineKeyAndTemplateDir($engineKey, $templateDir);
+
+        $this->resource = $resource;
         $this->engine = $engine;
         $this->log = new NullLogger();
     }
 
     /**
-     * render ALL the files!
+     * Render all collections
      */
     public function render()
     {
-        $names = $this->config->getFileNames();
+        $startTime = microtime(true);
+
+        $collections = $this->resource->getCollections();
 
         $this->log->info('Begin rendering text files', [
-            'count' => count($names),
-            'time' => microtime(true),
+            'count' => count($collections),
         ]);
 
-        foreach($names as $i => $name)
+        foreach($collections as $i => $collection)
         {
-            $paths = $this->config->getFilePathsForCollection($name);
-            foreach($paths as $j => $path)
-            {
-                $this->renderFile($name, $path);
-            }
+            $this->renderCollection($collection);
         }
 
         $this->log->info('Done rendering text files', [
-            'count' => count($names),
-            'time' => microtime(true),
+            'count' => count($collections),
+            'time' => microtime(true) - $startTime,
         ]);
     }
 
     /**
-     * @param string $name
-     * @param string $path
+     * Render a collection
+     *
+     * @param Collection $collection
      */
-    private function renderFile($name, $path)
+    private function renderCollection(Collection $collection)
     {
-        $srcPath = $path . '.' . $this->engine->getFileExtension();
-        $dstPath = $this->config->getOutputPath() . DIRECTORY_SEPARATOR . $path;
+        $files = $collection->getFiles();
+        foreach ($files as $i => $file)
+        {
+            $this->renderFile($collection, $file);
+        }
+    }
+
+    /**
+     * Render a file from a collection
+     *
+     * @param Collection $collection
+     * @param $file
+     */
+    private function renderFile(Collection $collection, $file)
+    {
+        $srcPath = $file . '.' . $this->engine->getFileExtension();
+        $dstPath = $this->resource->getOutputPath() . DIRECTORY_SEPARATOR . $file;
+
+        $name = $collection->getName();
 
         $this->log->debug('Rendering text file', [
             'name' => $name,
@@ -90,7 +114,7 @@ class Generator
 
         $contents = $this->engine->render(
             $srcPath,
-            $this->config->getCollectionValues($name)
+            $collection->getContent()
         );
 
         file_put_contents($dstPath, $contents);
