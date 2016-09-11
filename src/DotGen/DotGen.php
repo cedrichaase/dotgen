@@ -1,9 +1,10 @@
 <?php
 namespace DotGen;
 
-use DotGen\Config\ResourceInterface;
+use DotGen\Config\IResource;
 use DotGen\Generator\Generator;
 use DotGen\File\GuessesFileTypeTrait;
+use DotGen\TemplateEngine\TemplateEngineFactory;
 use Psr\Log\LoggerInterface;
 use Psr\Log\NullLogger;
 
@@ -28,13 +29,17 @@ class DotGen
     /**
      * DotGen constructor.
      *
-     * @param ResourceInterface $resource
+     * @param IResource $resource
      */
-    public function __construct(ResourceInterface $resource)
+    public function __construct(IResource $resource)
     {
         $this->log = new NullLogger();
+
+        $engineKey = $resource->getEngine();
+        $templateDir = $resource->getInputPath();
+        $engine = TemplateEngineFactory::createFromEngineKeyAndTemplateDir($engineKey, $templateDir);
         
-        $this->generator = new Generator($resource);
+        $this->generator = new Generator($resource, $engine);
     }
 
     /**
