@@ -1,12 +1,12 @@
 <?php
-namespace DotGen\TemplatingEngine;
+namespace DotGen\TemplateEngine;
 
 /**
  * Interface TemplatingEngineInterface
  *
- * @package cedrichaase\DotGen\TemplatingEngine
+ * @package cedrichaase\DotGen\TemplateEngine
  */
-interface TemplatingEngineInterface
+interface TemplateEngineInterface
 {
     /**
      * Render the template at given relative $path

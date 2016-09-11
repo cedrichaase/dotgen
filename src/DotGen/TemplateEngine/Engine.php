@@ -1,5 +1,5 @@
 <?php
-namespace DotGen\TemplatingEngine;
+namespace DotGen\TemplateEngine;
 
 /**
  * Class Engine

@@ -1,16 +1,16 @@
 <?php
-namespace DotGen\TemplatingEngine;
+namespace DotGen\TemplateEngine;
 
 use Twig_Environment;
 use Twig_Loader_Filesystem;
 use Twig_LoaderInterface;
 
 /**
- * Class TwigTemplatingEngine
+ * Class TwigTemplateEngine
  *
- * @package cedrichaase\DotGen\TemplatingEngine
+ * @package cedrichaase\DotGen\TemplateEngine
  */
-class TwigTemplatingEngine implements TemplatingEngineInterface
+class TwigTemplateEngine implements TemplateEngineInterface
 {
     /**
      * File extension for twig templates
