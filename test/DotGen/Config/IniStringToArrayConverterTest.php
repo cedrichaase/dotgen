@@ -7,7 +7,7 @@ class IniStringToArrayConverterTest extends \PHPUnit_Framework_TestCase
     {
         // arrange
         $converter = new IniStringToArrayConverter();
-        $ini = file_get_contents(self::resourceDir() . '/ini/base_example.ini');
+        $ini = file_get_contents(self::resourceDir() . '/base_example.ini');
         if(!is_dir('/tmp/a')) mkdir('/tmp/a', 0777, true);
         if(!is_dir('/tmp/b')) mkdir('/tmp/b', 0777, true);
         
@@ -37,7 +37,7 @@ class IniStringToArrayConverterTest extends \PHPUnit_Framework_TestCase
     {
         // arrange
         $converter = new IniStringToArrayConverter();
-        $ini = file_get_contents(self::resourceDir() . '/ini/omitted_config.ini');
+        $ini = file_get_contents(self::resourceDir() . '/omitted_config.ini');
 
         // act
         $resource = $converter->convert($ini);
