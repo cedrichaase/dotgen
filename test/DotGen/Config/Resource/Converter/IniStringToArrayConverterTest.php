@@ -1,5 +1,5 @@
 <?php
-namespace DotGen\Config;
+namespace DotGen\Config\Resource\Converter;
 
 use DotGen\Config\Resource\ArrayResource;
 use DotGen\Config\Resource\Converter\IniStringToArrayConverter;
@@ -95,6 +95,6 @@ class IniStringToArrayConverterTest extends \PHPUnit_Framework_TestCase
 
     private static function resourceDir()
     {
-        return realpath(__DIR__ . '/../../resource/ini');
+        return realpath(__DIR__ . '/../../../../resource/ini');
     }
 }
