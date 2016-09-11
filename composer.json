@@ -18,5 +18,8 @@
             "DotGen\\": ["src/", "test/"]
         }
     },
-    "bin": ["bin/dotgen"]
+    "bin": ["bin/dotgen"],
+    "require-dev": {
+        "phpunit/phpunit": "^5.5"
+    }
 }
