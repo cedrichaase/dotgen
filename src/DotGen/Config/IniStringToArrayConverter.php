@@ -136,7 +136,7 @@ class IniStringToArrayConverter implements IStringToArrayResourceConverter
      *
      * @param $basePath
      */
-    public function setBasePath($basePath): void
+    public function setBasePath($basePath)
     {
         $this->basePath = $basePath;
     }

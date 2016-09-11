@@ -42,5 +42,5 @@ interface IStringToArrayResourceConverter
      *
      * @param $basePath
      */
-    public function setBasePath($basePath): void;
+    public function setBasePath($basePath);
 }
