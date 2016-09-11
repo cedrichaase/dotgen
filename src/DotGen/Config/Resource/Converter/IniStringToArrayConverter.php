@@ -1,6 +1,8 @@
 <?php
-namespace DotGen\Config;
+namespace DotGen\Config\Resource\Converter;
 
+use DotGen\Config\Resource\Converter\IStringToArrayResourceConverter;
+use DotGen\Config\Resource\ArrayResource;
 use DotGen\File\HandlesFilesystemTrait;
 use DotGen\TemplateEngine\Engine;
 

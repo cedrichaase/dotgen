@@ -1,5 +1,6 @@
 <?php
-namespace DotGen\Config;
+namespace DotGen\Config\Resource\Converter;
+use DotGen\Config\Resource\ArrayResource;
 
 /**
  * Interface IStringToArrayResourceConverter

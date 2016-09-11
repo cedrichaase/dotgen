@@ -1,7 +1,7 @@
 <?php
 namespace DotGen;
 
-use DotGen\Config\IResource;
+use DotGen\Config\Resource\IResource;
 use DotGen\Config\Validator\ResourceValidator;
 use DotGen\Generator\Generator;
 use DotGen\File\GuessesFileTypeTrait;

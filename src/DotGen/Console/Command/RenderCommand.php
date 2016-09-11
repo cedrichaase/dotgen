@@ -1,7 +1,7 @@
 <?php
 namespace DotGen\Console\Command;
 
-use DotGen\Config\IniStringToArrayConverter;
+use DotGen\Config\Resource\Converter\IniStringToArrayConverter;
 use DotGen\DotGen;
 use DotGen\File\HandlesFilesystemTrait;
 use Monolog\Logger;

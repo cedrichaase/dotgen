@@ -1,7 +1,8 @@
 <?php
-namespace DotGen\Config;
+namespace DotGen\Config\Resource;
 
 use DotGen\Config\Entity\Collection;
+use DotGen\Config\Resource\IResource;
 
 class ArrayResource implements IResource
 {

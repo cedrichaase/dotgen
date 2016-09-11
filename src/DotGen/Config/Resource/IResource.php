@@ -1,5 +1,5 @@
 <?php
-namespace DotGen\Config;
+namespace DotGen\Config\Resource;
 use DotGen\Config\Entity\Collection;
 
 /**

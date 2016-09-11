@@ -1,6 +1,9 @@
 <?php
 namespace DotGen\Config;
 
+use DotGen\Config\Resource\ArrayResource;
+use DotGen\Config\Resource\Converter\IniStringToArrayConverter;
+
 class IniStringToArrayConverterTest extends \PHPUnit_Framework_TestCase
 {
     public function testConvertHappyPath()

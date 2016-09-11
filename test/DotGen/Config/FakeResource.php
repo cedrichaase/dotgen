@@ -1,6 +1,7 @@
 <?php
 namespace DotGen\Config;
 use DotGen\Config\Entity\Collection;
+use DotGen\Config\Resource\IResource;
 
 /**
  * Class FakeResource

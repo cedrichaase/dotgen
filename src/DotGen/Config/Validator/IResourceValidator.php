@@ -1,7 +1,7 @@
 <?php
 namespace DotGen\Config\Validator;
 
-use DotGen\Config\IResource;
+use DotGen\Config\Resource\IResource;
 
 interface IResourceValidator
 {
