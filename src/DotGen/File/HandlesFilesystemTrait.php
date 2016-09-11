@@ -9,11 +9,7 @@ trait HandlesFilesystemTrait
      */
     protected static function createPathIfNotExists(string $path)
     {
-        $dir = dirname(realpath($path));
-        if($dir && !is_dir($dir))
-        {
-            mkdir($dir, 0777, true);
-        }
+        if(!is_dir($path)) mkdir($path, 0777, true);
     }
 
     /**
@@ -21,7 +17,7 @@ trait HandlesFilesystemTrait
      *
      * @throws FileHandlingException
      */
-    protected static function assertFileExists(string $path)
+    protected static function assertExists(string $path)
     {
         $path = realpath($path);
 
@@ -39,6 +35,11 @@ trait HandlesFilesystemTrait
      */
     protected static function isRelativePath(string $path)
     {
+        if(!$path)
+        {
+            return false;
+        }
+
         $beginsWith = '/';
         return !(substr($path, 0, strlen($beginsWith)) === $beginsWith);
     }
