@@ -2,11 +2,11 @@
 namespace DotGen\Config;
 
 /**
- * Interface ResourceInterface
+ * Interface IResource
  * 
  * @package DotGen\Config
  */
-interface ResourceInterface
+interface IResource
 {
     /**
      * Return the collections managed by this resource

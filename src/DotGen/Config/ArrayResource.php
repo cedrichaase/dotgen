@@ -1,7 +1,7 @@
 <?php
 namespace DotGen\Config;
 
-class ArrayResource implements ResourceInterface
+class ArrayResource implements IResource
 {
     /**
      * The reserved collection array key for files
@@ -97,5 +97,5 @@ class ArrayResource implements ResourceInterface
         }
 
         return $collections;
-    }    
+    }
 }
