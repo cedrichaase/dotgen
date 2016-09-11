@@ -1,7 +1,7 @@
 <?php
 namespace DotGen\Console\Command;
 
-use DotGen\Config\IniResource;
+use DotGen\Config\IniStringToArrayConverter;
 use DotGen\DotGen;
 use Monolog\Logger;
 use Symfony\Bridge\Monolog\Handler\ConsoleHandler;
@@ -54,7 +54,9 @@ class RenderCommand extends Command
             $output->writeln('No valid source file specified');
         }
 
-        $resource = new IniResource($path);
+        $ini = file_get_contents($path);
+        $converter = new IniStringToArrayConverter();
+        $resource = $converter->convert($ini);
         $dotgen = new DotGen($resource);
 
         $verbose  = $input->getOption(self::OPT_VERBOSE);
