@@ -44,4 +44,11 @@ interface IStringToArrayResourceConverter
      * @param $basePath
      */
     public function setBasePath($basePath);
+
+    /**
+     * @param $string
+     *
+     * @return bool
+     */
+    public function supports($string): bool;
 }

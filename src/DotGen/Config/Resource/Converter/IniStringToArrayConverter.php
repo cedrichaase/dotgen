@@ -1,7 +1,6 @@
 <?php
 namespace DotGen\Config\Resource\Converter;
 
-use DotGen\Config\Resource\Converter\IStringToArrayResourceConverter;
 use DotGen\Config\Resource\ArrayResource;
 use DotGen\File\HandlesFilesystemTrait;
 use DotGen\TemplateEngine\Engine;
@@ -141,5 +140,24 @@ class IniStringToArrayConverter implements IStringToArrayResourceConverter
     public function setBasePath($basePath)
     {
         $this->basePath = $basePath;
+    }
+
+    /**
+     * @param $string
+     *
+     * @return bool
+     */
+    public function supports($string): bool
+    {
+        $supports = false;
+
+        $parsed = self::parseIni($string);
+
+        if($parsed)
+        {
+            $supports = true;
+        }
+
+        return $supports;
     }
 }
