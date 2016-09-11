@@ -2,11 +2,11 @@
 namespace DotGen\Generator;
 
 use DotGen\Config\Collection;
-use DotGen\Config\ResourceInterface;
+use DotGen\Config\IResource;
 use DotGen\File\HandlesFilesystemTrait;
-use DotGen\TemplatingEngine\TemplatingEngineException;
-use DotGen\TemplatingEngine\TemplatingEngineFactory;
-use DotGen\TemplatingEngine\TemplatingEngineInterface;
+use DotGen\TemplateEngine\TemplateEngineException;
+use DotGen\TemplateEngine\TemplateEngineFactory;
+use DotGen\TemplateEngine\TemplateEngineInterface;
 use Psr\Log\LoggerInterface;
 use Psr\Log\NullLogger;
 
@@ -20,12 +20,12 @@ class Generator
     use HandlesFilesystemTrait;
     
     /**
-     * @var TemplatingEngineInterface
+     * @var TemplateEngineInterface
      */
     private $engine;
 
     /**
-     * @var ResourceInterface
+     * @var IResource
      */
     private $resource;
 
@@ -37,17 +37,11 @@ class Generator
     /**
      * Generator constructor.
      *
-     * @param ResourceInterface $resource
-     *
-     * @throws TemplatingEngineException
+     * @param IResource $resource
+     * @param TemplateEngineInterface $engine
      */
-    public function __construct(ResourceInterface $resource)
+    public function __construct(IResource $resource, TemplateEngineInterface $engine)
     {
-        $engineKey = $resource->getEngine();
-        $templateDir = $resource->getOutputPath();
-
-        $engine = TemplatingEngineFactory::createFromEngineKeyAndTemplateDir($engineKey, $templateDir);
-
         $this->resource = $resource;
         $this->engine = $engine;
         $this->log = new NullLogger();
@@ -68,7 +62,7 @@ class Generator
 
         foreach($collections as $i => $collection)
         {
-            $this->renderCollection($collection);
+            yield $this->renderCollection($collection);
         }
 
         $this->log->info('Done rendering text files', [
@@ -81,13 +75,15 @@ class Generator
      * Render a collection
      *
      * @param Collection $collection
+     *
+     * @return \Generator
      */
     private function renderCollection(Collection $collection)
     {
         $files = $collection->getFiles();
         foreach ($files as $i => $file)
         {
-            $this->renderFile($collection, $file);
+            yield $this->renderFile($collection, $file);
         }
     }
 
@@ -96,8 +92,10 @@ class Generator
      *
      * @param Collection $collection
      * @param $file
+     *
+     * @return string
      */
-    private function renderFile(Collection $collection, $file)
+    private function renderFile(Collection $collection, $file): string
     {
         $srcPath = $file . '.' . $this->engine->getFileExtension();
         $dstPath = $this->resource->getOutputPath() . DIRECTORY_SEPARATOR . $file;
@@ -117,7 +115,7 @@ class Generator
             $collection->getContent()
         );
 
-        file_put_contents($dstPath, $contents);
+        return new RenderedFile($contents, $dstPath);
     }
 
     /**
