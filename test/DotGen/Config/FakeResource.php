@@ -1,5 +1,6 @@
 <?php
 namespace DotGen\Config;
+use DotGen\Config\Entity\Collection;
 
 /**
  * Class FakeResource
@@ -71,7 +72,7 @@ class FakeResource implements IResource
     }
 
     /**
-     * @param \DotGen\Config\Collection[] $collections
+     * @param \DotGen\Config\Entity\Collection[] $collections
      */
     public function setCollections($collections)
     {

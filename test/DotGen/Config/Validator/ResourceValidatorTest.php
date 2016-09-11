@@ -1,7 +1,7 @@
 <?php
 namespace DotGen\Config\Validator;
 
-use DotGen\Config\Collection;
+use DotGen\Config\Entity\Collection;
 use DotGen\Config\FakeResource;
 
 class ResourceValidatorTest extends \PHPUnit_Framework_TestCase

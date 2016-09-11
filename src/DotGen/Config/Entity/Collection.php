@@ -1,5 +1,5 @@
 <?php
-namespace DotGen\Config;
+namespace DotGen\Config\Entity;
 
 /**
  * Class Collection

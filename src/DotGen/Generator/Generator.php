@@ -1,7 +1,7 @@
 <?php
 namespace DotGen\Generator;
 
-use DotGen\Config\Collection;
+use DotGen\Config\Entity\Collection;
 use DotGen\Config\IResource;
 use DotGen\TemplateEngine\TemplateEngineInterface;
 use Psr\Log\LoggerInterface;

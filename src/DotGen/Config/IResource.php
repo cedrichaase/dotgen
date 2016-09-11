@@ -1,5 +1,6 @@
 <?php
 namespace DotGen\Config;
+use DotGen\Config\Entity\Collection;
 
 /**
  * Interface IResource
