@@ -3,9 +3,6 @@ namespace DotGen\Generator;
 
 use DotGen\Config\Collection;
 use DotGen\Config\IResource;
-use DotGen\File\HandlesFilesystemTrait;
-use DotGen\TemplateEngine\TemplateEngineException;
-use DotGen\TemplateEngine\TemplateEngineFactory;
 use DotGen\TemplateEngine\TemplateEngineInterface;
 use Psr\Log\LoggerInterface;
 use Psr\Log\NullLogger;
@@ -17,8 +14,6 @@ use Psr\Log\NullLogger;
  */
 class Generator
 {
-    use HandlesFilesystemTrait;
-    
     /**
      * @var TemplateEngineInterface
      */
@@ -49,6 +44,8 @@ class Generator
 
     /**
      * Render all collections
+     *
+     * @return RenderedFile[]
      */
     public function render()
     {
@@ -60,15 +57,18 @@ class Generator
             'count' => count($collections),
         ]);
 
+        $renderedFiles = [];
         foreach($collections as $i => $collection)
         {
-            yield $this->renderCollection($collection);
+            $renderedFiles = array_merge($renderedFiles, $this->renderCollection($collection));
         }
 
         $this->log->info('Done rendering text files', [
             'count' => count($collections),
             'time' => microtime(true) - $startTime,
         ]);
+
+        return $renderedFiles;
     }
 
     /**
@@ -76,15 +76,19 @@ class Generator
      *
      * @param Collection $collection
      *
-     * @return \Generator
+     * @return RenderedFile[]
      */
     private function renderCollection(Collection $collection)
     {
         $files = $collection->getFiles();
+        $renderedFiles = [];
+
         foreach ($files as $i => $file)
         {
-            yield $this->renderFile($collection, $file);
+            $renderedFiles[] = $this->renderFile($collection, $file);
         }
+
+        return $renderedFiles;
     }
 
     /**
@@ -93,9 +97,9 @@ class Generator
      * @param Collection $collection
      * @param $file
      *
-     * @return string
+     * @return RenderedFile
      */
-    private function renderFile(Collection $collection, $file): string
+    private function renderFile(Collection $collection, $file): RenderedFile
     {
         $srcPath = $file . '.' . $this->engine->getFileExtension();
         $dstPath = $this->resource->getOutputPath() . DIRECTORY_SEPARATOR . $file;
@@ -108,12 +112,15 @@ class Generator
             'dst_path' => $dstPath,
         ]);
 
-        self::createPathIfNotExists($dstPath);
-
         $contents = $this->engine->render(
             $srcPath,
             $collection->getContent()
         );
+
+        $this->log->debug('Rendered text file', [
+            'contents' => $contents,
+            'dstPath' => $dstPath,
+        ]);
 
         return new RenderedFile($contents, $dstPath);
     }

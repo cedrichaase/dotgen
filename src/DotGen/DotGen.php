@@ -4,6 +4,7 @@ namespace DotGen;
 use DotGen\Config\IResource;
 use DotGen\Generator\Generator;
 use DotGen\File\GuessesFileTypeTrait;
+use DotGen\Generator\RenderedFile;
 use DotGen\TemplateEngine\TemplateEngineFactory;
 use Psr\Log\LoggerInterface;
 use Psr\Log\NullLogger;
@@ -44,10 +45,12 @@ class DotGen
 
     /**
      * Renders all text files
+     *
+     * @return RenderedFile[]
      */
-    public function render()
+    public function render(): array
     {
-        $this->generator->render();
+        return $this->generator->render();
     }
 
     /**
