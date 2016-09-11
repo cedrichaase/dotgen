@@ -2,6 +2,7 @@
 namespace DotGen;
 
 use DotGen\Config\IResource;
+use DotGen\Config\Validator\ResourceValidator;
 use DotGen\Generator\Generator;
 use DotGen\File\GuessesFileTypeTrait;
 use DotGen\Generator\RenderedFile;
@@ -35,6 +36,8 @@ class DotGen
     public function __construct(IResource $resource)
     {
         $this->log = new NullLogger();
+
+        ResourceValidator::validate($resource);
 
         $engineKey = $resource->getEngine();
         $templateDir = $resource->getInputPath();
