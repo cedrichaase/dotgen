@@ -53,7 +53,7 @@ class TwigTemplateEngine implements TemplateEngineInterface
      */
     public function render(string $name, array $context): string
     {
-        return $this->env->render($name, $context);
+        return $this->env->render($name . '.' . self::FILE_EXTENSION, $context);
     }
 
     /**
