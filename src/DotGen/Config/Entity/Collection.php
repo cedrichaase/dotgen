@@ -31,7 +31,7 @@ class Collection
      *
      * @var string[]
      */
-    private $files;
+    private $templates;
 
     /**
      * Collection constructor.
@@ -44,7 +44,7 @@ class Collection
     {
         $this->name = $name;
         $this->content = $content;
-        $this->files = $files;
+        $this->templates = $files;
     }
 
     /**
@@ -82,16 +82,16 @@ class Collection
     /**
      * @return string[]
      */
-    public function getFiles(): array
+    public function getTemplates(): array
     {
-        return $this->files;
+        return $this->templates;
     }
 
     /**
-     * @param string[] $files
+     * @param string[] $templates
      */
-    public function setFiles($files)
+    public function setTemplates($templates)
     {
-        $this->files = $files;
+        $this->templates = $templates;
     }
 }
