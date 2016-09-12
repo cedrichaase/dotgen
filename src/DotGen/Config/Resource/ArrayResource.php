@@ -2,7 +2,8 @@
 namespace DotGen\Config\Resource;
 
 use DotGen\Config\Entity\Collection;
-use DotGen\Config\Resource\IResource;
+use Psr\Log\LoggerInterface;
+use Psr\Log\NullLogger;
 
 class ArrayResource implements IResource
 {
@@ -33,6 +34,11 @@ class ArrayResource implements IResource
     private $engine;
 
     /**
+     * @var LoggerInterface
+     */
+    private $logger;
+
+    /**
      * ArrayResource constructor.
      *
      * @param array     $collections    The collections as name => [key => value]
@@ -42,7 +48,7 @@ class ArrayResource implements IResource
      */
     public function __construct(array $collections, string $inputPath, string $outputPath, string $engine)
     {
-        $this->collections = self::buildCollectionArray($collections);
+        $this->collections = $this->buildCollectionArray($collections);
         $this->inputPath = $inputPath;
         $this->outputPath = $outputPath;
         $this->engine = $engine;
@@ -85,7 +91,7 @@ class ArrayResource implements IResource
      *
      * @return Collection[]
      */
-    private static function buildCollectionArray(array $rawCollections)
+    private function buildCollectionArray(array $rawCollections)
     {
         $collections = [];
 
@@ -93,6 +99,14 @@ class ArrayResource implements IResource
         {
             // extract and remove files array from collection
             $files = $rawCollection[self::COLLECTION_KEY_FILES];
+            if(!$files)
+            {
+                $this->logger->warning('No files found for collection', [
+                    'collection' => $name,
+                ]);
+                continue;
+            }
+
             unset($rawCollection[self::COLLECTION_KEY_FILES]);
 
             // push collection
