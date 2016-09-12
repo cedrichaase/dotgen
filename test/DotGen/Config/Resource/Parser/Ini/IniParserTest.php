@@ -56,9 +56,11 @@ class IniParserTest extends \PHPUnit_Framework_TestCase
         $string = file_get_contents(self::iniResourcesDir() . $file);
 
         // act
+        $supported = $parser->supports($string);
         $array = $parser->parse($string);
         
         // assert
+        self::assertSame($supported, true);
         self::assertSame($array, $expected);
     }
 
@@ -72,6 +74,11 @@ class IniParserTest extends \PHPUnit_Framework_TestCase
         $this->expectException(IniParserException::class);
 
         // act
-        $parser->parse($string);
+        $supported = $parser->supports($string);
+        $array = $parser->parse($string);
+
+        // assert
+        assertSame($supported, false);
+        assertSame((bool) $array, false);
     }
 }
