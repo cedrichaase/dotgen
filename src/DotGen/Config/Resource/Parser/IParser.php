@@ -17,4 +17,13 @@ interface IParser
      * @throws ParserException
      */
     public function parse(string $string): array;
+
+    /**
+     * Determine whether or not the given string
+     * can be parsed by this parser
+     *
+     * @param string $string
+     * @return array
+     */
+    public function supports(string $string): bool;
 }

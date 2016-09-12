@@ -32,4 +32,24 @@ class IniParser implements IParser
 
         return $parsed;
     }
+
+    /**
+     * @param string $string
+     * @return bool
+     */
+    public function supports(string $string): bool
+    {
+        $supports = true;
+
+        try
+        {
+            $this->parse($string);
+        }
+        catch(IniParserException $e)
+        {
+            $supports = false;
+        }
+
+        return $supports;
+    }
 }

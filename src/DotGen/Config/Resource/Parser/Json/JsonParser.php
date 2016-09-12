@@ -37,4 +37,27 @@ class JsonParser implements IParser
 
         return $parsed;
     }
+
+    /**
+     * Determine whether or not the given string
+     * can be parsed by this parser
+     *
+     * @param string $string
+     * @return array
+     */
+    public function supports(string $string): bool
+    {
+        $supports = true;
+
+        try
+        {
+            $this->parse($string);
+        }
+        catch(JsonParserException $e)
+        {
+            $supports = false;
+        }
+
+        return $supports;
+    }
 }
