@@ -1,0 +1,13 @@
+{
+  "global": {
+    "__templates_dir": "/tmp/a",
+    "__target_dir": "/tmp/b",
+    "__engine": "twig"
+  },
+  "my_collection": {
+    "__files": ["a.txt", "b.txt"],
+    "some_var": "some_value",
+    "some_bool": true,
+    "some_number": 5
+  }
+}
