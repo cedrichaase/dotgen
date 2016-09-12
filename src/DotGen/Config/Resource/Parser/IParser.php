@@ -23,7 +23,7 @@ interface IParser
      * can be parsed by this parser
      *
      * @param string $string
-     * @return array
+     * @return bool
      */
     public function supports(string $string): bool;
 }
