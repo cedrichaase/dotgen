@@ -25,7 +25,7 @@ class IniStringToArrayConverterTest extends \PHPUnit_Framework_TestCase
         $collection = $resource->getCollections()[0];
         self::assertSame($collection->getName(), 'my_collection');
 
-        $files = $collection->getFiles();
+        $files = $collection->getTemplates();
         self::assertSame($files[0], 'a.txt');
         self::assertSame($files[1], 'b.txt');
 
