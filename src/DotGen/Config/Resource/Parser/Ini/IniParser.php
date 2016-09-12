@@ -1,0 +1,35 @@
+<?php
+namespace DotGen\Config\Resource\Parser\Ini;
+
+use DotGen\Config\Resource\Parser\IParser;
+use DotGen\Config\Resource\Parser\ParserException;
+
+/**
+ * Class IniParser
+ *
+ * Parses an INI string to an associative array
+ *
+ * @package DotGen\Config\Resource\Parser\Ini
+ */
+class IniParser implements IParser
+{
+    /**
+     * Parse the given string to an array
+     *
+     * @param string $string
+     * @return array
+     *
+     * @throws ParserException
+     */
+    public function parse(string $string): array
+    {
+        $parsed = parse_ini_string($string, true, INI_SCANNER_TYPED);
+
+        if(!$parsed)
+        {
+            throw new IniParserException("Error parsing INI string");
+        }
+
+        return $parsed;
+    }
+}
