@@ -16,34 +16,34 @@ class RenderedFile
     /**
      * @var string
      */
-    private $destinationPath;
+    private $templateName;
 
     /**
      * RenderedFile constructor.
      *
-     * @param $contents
-     * @param string $destinationPath
+     * @param string $contents
+     * @param string $templateName
      */
-    public function __construct($contents, $destinationPath)
+    public function __construct($contents, $templateName)
     {
         $this->contents = $contents;
-        $this->destinationPath = $destinationPath;
+        $this->templateName = $templateName;
     }
 
     /**
      * @return string
      */
-    public function getDestinationPath()
+    public function getTemplateName()
     {
-        return $this->destinationPath;
+        return $this->templateName;
     }
 
     /**
-     * @param string $destinationPath
+     * @param string $templateName
      */
-    public function setDestinationPath($destinationPath)
+    public function setTemplateName($templateName)
     {
-        $this->destinationPath = $destinationPath;
+        $this->templateName = $templateName;
     }
 
     /**
