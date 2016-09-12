@@ -1,14 +1,19 @@
 <?php
 namespace DotGen\Console\Command;
 
-use DotGen\Config\Resource\Converter\IniStringToArrayConverter;
-use DotGen\DotGen;
+use DotGen\Config\Resource\Converter\ArrayToResourceConverter;
+use DotGen\Config\Resource\Converter\BaseDirTemplateMapper;
+use DotGen\Config\Resource\Parser\ParserManager;
 use DotGen\File\HandlesFilesystemTrait;
+use DotGen\Generator\Generator;
+use DotGen\TemplateEngine\TemplateEngineFactory;
 use Monolog\Logger;
+use Psr\Log\NullLogger;
 use Symfony\Bridge\Monolog\Handler\ConsoleHandler;
 use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Input\InputArgument;
 use Symfony\Component\Console\Input\InputInterface;
+use Symfony\Component\Console\Input\InputOption;
 use Symfony\Component\Console\Output\OutputInterface;
 
 class RenderCommand extends Command
@@ -23,7 +28,28 @@ class RenderCommand extends Command
     /**
      * config file argument
      */
-    const ARG_CONFIG_INI = 'ini';
+    const ARG_CONFIG_FILE = 'config';
+
+    /**
+     * template dir option
+     */
+    const OPT_TEMPLATE_PATH = 'template-dir';
+
+    const OPT_TEMPLATE_PATH_SHORT = 't';
+
+    /**
+     * template engine option
+     */
+    const OPT_TEMPLATE_ENGINE = 'template-engine';
+
+    const OPT_TEMPLATE_ENGINE_SHORT = 'e';
+
+    /**
+     * output path option
+     */
+    const OPT_OUTPUT_PATH = 'output-path';
+
+    const OPT_OUTPUT_PATH_SHORT = 'o';
 
     /**
      * verbose option
@@ -37,9 +63,30 @@ class RenderCommand extends Command
             ->setHelp('This command renders all templates configured in the given resource');
 
         $this->addArgument(
-            self::ARG_CONFIG_INI,
+            self::ARG_CONFIG_FILE,
             InputArgument::REQUIRED,
-            'path to ini source file'
+            'path to config file'
+        );
+
+        $this->addOption(
+            self::OPT_TEMPLATE_PATH,
+            self::OPT_TEMPLATE_PATH_SHORT,
+            InputOption::VALUE_OPTIONAL,
+            'path to templates (defaults to config file path)'
+        );
+
+        $this->addOption(
+            self::OPT_OUTPUT_PATH,
+            self::OPT_OUTPUT_PATH_SHORT,
+            InputOption::VALUE_OPTIONAL,
+            'output path for rendered files (defaults to config file path)'
+        );
+
+        $this->addOption(
+            self::OPT_TEMPLATE_ENGINE,
+            self::OPT_TEMPLATE_ENGINE_SHORT,
+            InputOption::VALUE_OPTIONAL,
+            'force the use of a specific template engine (defaults to twig)'
         );
     }
 
@@ -51,32 +98,60 @@ class RenderCommand extends Command
      */
     protected function execute(InputInterface $input, OutputInterface $output)
     {
-        $path = $input->getArgument(self::ARG_CONFIG_INI);
+        $path = $input->getArgument(self::ARG_CONFIG_FILE);
         if(!$path || !file_exists($path))
         {
             $output->writeln('No valid source file specified');
         }
 
-        $ini = file_get_contents($path);
-        $converter = new IniStringToArrayConverter();
-        $converter->setBasePath(dirname($path));
-        $resource = $converter->convert($ini);
+        $engineKey = $input->getOption(self::OPT_TEMPLATE_ENGINE);
+        if(!$engineKey)
+        {
+            $engineKey = 'twig';
+        }
 
+        $templateDir = $input->getOption(self::OPT_TEMPLATE_PATH);
+        if(!$templateDir)
+        {
+            $templateDir = realpath(dirname($path));
+        }
 
-        $dotgen = new DotGen($resource);
+        $outputDir = $input->getOption(self::OPT_OUTPUT_PATH);
+        if(!$outputDir)
+        {
+            $outputDir = realpath(dirname($path));
+        }
 
         $verbose  = $input->getOption(self::OPT_VERBOSE);
+        $logger = new NullLogger();
         if($verbose)
         {
             $logger = new Logger(self::NAME);
             $logger->pushHandler(new ConsoleHandler($output));
-            $dotgen->setLogger($logger);
         }
 
-        $renderedFiles = $dotgen->render();
+        $config = file_get_contents($path);
+        $parser = new ParserManager();
+        $parsed = $parser->parse($config);
+
+        $converter = new ArrayToResourceConverter();
+        $converter->setLogger($logger);
+        $resource = $converter->convert($parsed);
+
+        $engine = TemplateEngineFactory::createFromEngineKeyAndTemplateDir($engineKey, $templateDir);
+
+        $generator = new Generator($resource, $engine);
+        $generator->setLogger($logger);
+
+        $renderedFiles = $generator->render();
+
+        $mapper = new BaseDirTemplateMapper($outputDir);
         foreach($renderedFiles as $i => $renderedFile)
         {
-            file_put_contents($renderedFile->getDestinationPath(), $renderedFile->getContents());
+            $renderedFilePath = $mapper->map($renderedFile->getTemplateName());
+            file_put_contents($renderedFilePath, $renderedFile->getContents());
         }
+
+        return;
     }
 }
