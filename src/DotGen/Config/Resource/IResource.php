@@ -17,23 +17,11 @@ interface IResource
     public function getCollections();
 
     /**
-     * Return the engine key of the engine to use for this resource
+     * Returns relative path of the template file
+     * for given template name
      *
+     * @param $template
      * @return string
      */
-    public function getEngine();
-
-    /**
-     * Return the path to find templates in
-     *
-     * @return string
-     */
-    public function getInputPath();
-
-    /**
-     * Return the path to output rendered text files to
-     *
-     * @return string
-     */
-    public function getOutputPath();
+    public function getTemplatePath($template);
 }
