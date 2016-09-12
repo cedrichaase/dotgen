@@ -38,7 +38,7 @@ class ResourceValidator implements IResourceValidator
         foreach($collections as $i => $collection)
         {
             $collectionName = $collection->getName();
-            $collectionFiles = $collection->getFiles();
+            $collectionFiles = $collection->getTemplates();
             
             foreach($collectionFiles as $j => $file)
             {
