@@ -34,6 +34,6 @@ class BaseDirTemplateMapper implements ITemplateMapper
      */
     public function map($templateName): string
     {
-        return $this->baseDir . $templateName;
+        return $this->baseDir . DIRECTORY_SEPARATOR . $templateName;
     }
 }
