@@ -93,7 +93,7 @@ class IniStringToArrayConverter implements IStringToArrayResourceConverter
 
         if(self::isRelativePath($path))
         {
-            $path = $this->basePath . DIRECTORY_SEPARATOR . $path;
+            $path = realpath($this->basePath . DIRECTORY_SEPARATOR . $path);
         }
 
         if(!$path)
@@ -106,7 +106,7 @@ class IniStringToArrayConverter implements IStringToArrayResourceConverter
             $path = getenv('HOME');
         }
 
-        return realpath($path);
+        return $path;
     }
 
     /**
