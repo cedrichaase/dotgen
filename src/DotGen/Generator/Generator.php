@@ -53,7 +53,7 @@ class Generator
 
         $collections = $this->resource->getCollections();
 
-        $this->log->info('Begin rendering text files', [
+        $this->log->info('Begin rendering templates', [
             'count' => count($collections),
         ]);
 
@@ -63,7 +63,7 @@ class Generator
             $renderedFiles = array_merge($renderedFiles, $this->renderCollection($collection));
         }
 
-        $this->log->info('Done rendering text files', [
+        $this->log->info('Done rendering', [
             'count' => count($collections),
             'time' => microtime(true) - $startTime,
         ]);
@@ -80,12 +80,12 @@ class Generator
      */
     private function renderCollection(Collection $collection)
     {
-        $files = $collection->getFiles();
+        $templates = $collection->getTemplates();
         $renderedFiles = [];
 
-        foreach ($files as $i => $file)
+        foreach ($templates as $i => $template)
         {
-            $renderedFiles[] = $this->renderFile($collection, $file);
+            $renderedFiles[] = $this->renderTemplate($collection, $template);
         }
 
         return $renderedFiles;
@@ -99,30 +99,26 @@ class Generator
      *
      * @return RenderedFile
      */
-    private function renderFile(Collection $collection, $file): RenderedFile
+    private function renderTemplate(Collection $collection, $templateName): RenderedFile
     {
-        $srcPath = $file . '.' . $this->engine->getFileExtension();
-        $dstPath = $this->resource->getOutputPath() . DIRECTORY_SEPARATOR . $file;
+        $collectionName = $collection->getName();
 
-        $name = $collection->getName();
-
-        $this->log->debug('Rendering text file', [
-            'name' => $name,
-            'src_path' => $srcPath,
-            'dst_path' => $dstPath,
+        $this->log->debug('Rendering template', [
+            'collection' => $collectionName,
+            'template' => $templateName,
         ]);
 
         $contents = $this->engine->render(
-            $srcPath,
+            $this->resource->getTemplatePath($templateName),
             $collection->getContent()
         );
 
         $this->log->debug('Rendered text file', [
             'contents' => $contents,
-            'dstPath' => $dstPath,
+            'collection' => $collectionName,
         ]);
 
-        return new RenderedFile($contents, $dstPath);
+        return new RenderedFile($contents, $templateName);
     }
 
     /**
