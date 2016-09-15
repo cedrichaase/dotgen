@@ -6,7 +6,7 @@ use DotGen\Config\Resource\Converter\BaseDirTemplateMapper;
 use DotGen\Config\Resource\Parser\ParserManager;
 use DotGen\File\HandlesFilesystemTrait;
 use DotGen\Generator\Generator;
-use DotGen\TemplateEngine\TemplateEngineFactory;
+use DotGen\TemplateEngine\TemplateEngineManager;
 use Monolog\Logger;
 use Psr\Log\NullLogger;
 use Symfony\Bridge\Monolog\Handler\ConsoleHandler;
@@ -36,13 +36,6 @@ class RenderCommand extends Command
     const OPT_TEMPLATE_PATH = 'template-dir';
 
     const OPT_TEMPLATE_PATH_SHORT = 't';
-
-    /**
-     * template engine option
-     */
-    const OPT_TEMPLATE_ENGINE = 'template-engine';
-
-    const OPT_TEMPLATE_ENGINE_SHORT = 'e';
 
     /**
      * output path option
@@ -81,13 +74,6 @@ class RenderCommand extends Command
             InputOption::VALUE_OPTIONAL,
             'output path for rendered files (defaults to config file path)'
         );
-
-        $this->addOption(
-            self::OPT_TEMPLATE_ENGINE,
-            self::OPT_TEMPLATE_ENGINE_SHORT,
-            InputOption::VALUE_OPTIONAL,
-            'force the use of a specific template engine (defaults to twig)'
-        );
     }
 
     /**
@@ -102,12 +88,6 @@ class RenderCommand extends Command
         if(!$path || !file_exists($path))
         {
             $output->writeln('No valid source file specified');
-        }
-
-        $engineKey = $input->getOption(self::OPT_TEMPLATE_ENGINE);
-        if(!$engineKey)
-        {
-            $engineKey = 'twig';
         }
 
         $templateDir = $input->getOption(self::OPT_TEMPLATE_PATH);
@@ -138,7 +118,7 @@ class RenderCommand extends Command
         $converter->setLogger($logger);
         $resource = $converter->convert($parsed);
 
-        $engine = TemplateEngineFactory::createFromEngineKeyAndTemplateDir($engineKey, $templateDir);
+        $engine = new TemplateEngineManager($templateDir);
 
         $generator = new Generator($resource, $engine);
         $generator->setLogger($logger);
