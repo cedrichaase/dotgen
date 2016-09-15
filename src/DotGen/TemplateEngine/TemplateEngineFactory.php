@@ -13,7 +13,7 @@ class TemplateEngineFactory
      *
      * @param string $key
      * @param string $templateDir
-     * @return TemplateEngineInterface
+     * @return ITemplateEngine
      *
      * @throws TemplateEngineException
      */
@@ -22,7 +22,7 @@ class TemplateEngineFactory
         switch ($key)
         {
             case Engine::ENGINE_TWIG:
-                $engine = new TwigTemplateEngine($templateDir);
+                $engine = new TwigITemplateEngine($templateDir);
                 break;
             default:
                 throw new TemplateEngineException('No valid templating engine found for key ' . $key);

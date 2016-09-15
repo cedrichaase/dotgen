@@ -6,7 +6,7 @@ namespace DotGen\TemplateEngine;
  *
  * @package cedrichaase\DotGen\TemplateEngine
  */
-interface TemplateEngineInterface
+interface ITemplateEngine
 {
     /**
      * Render the template at given relative $path

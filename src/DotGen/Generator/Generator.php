@@ -3,7 +3,7 @@ namespace DotGen\Generator;
 
 use DotGen\Config\Entity\Collection;
 use DotGen\Config\Resource\IResource;
-use DotGen\TemplateEngine\TemplateEngineInterface;
+use DotGen\TemplateEngine\ITemplateEngine;
 use Psr\Log\LoggerInterface;
 use Psr\Log\NullLogger;
 
@@ -15,7 +15,7 @@ use Psr\Log\NullLogger;
 class Generator
 {
     /**
-     * @var TemplateEngineInterface
+     * @var ITemplateEngine
      */
     private $engine;
 
@@ -33,9 +33,9 @@ class Generator
      * Generator constructor.
      *
      * @param IResource $resource
-     * @param TemplateEngineInterface $engine
+     * @param ITemplateEngine $engine
      */
-    public function __construct(IResource $resource, TemplateEngineInterface $engine)
+    public function __construct(IResource $resource, ITemplateEngine $engine)
     {
         $this->resource = $resource;
         $this->engine = $engine;

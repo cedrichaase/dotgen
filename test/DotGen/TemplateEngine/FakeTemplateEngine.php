@@ -1,7 +1,7 @@
 <?php
 namespace DotGen\TemplateEngine;
 
-class FakeTemplateEngine implements TemplateEngineInterface
+class FakeITemplateEngine implements ITemplateEngine
 {
     const FILE_EXTENSION = 'fake';
 

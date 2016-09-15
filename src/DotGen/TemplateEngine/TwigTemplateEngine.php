@@ -10,7 +10,7 @@ use Twig_LoaderInterface;
  *
  * @package cedrichaase\DotGen\TemplateEngine
  */
-class TwigTemplateEngine implements TemplateEngineInterface
+class TwigITemplateEngine implements ITemplateEngine
 {
     /**
      * File extension for twig templates

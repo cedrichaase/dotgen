@@ -3,14 +3,14 @@ namespace DotGen\Generator;
 
 use DotGen\Config\Entity\Collection;
 use DotGen\Config\Resource\FakeResource;
-use DotGen\TemplateEngine\FakeTemplateEngine;
+use DotGen\TemplateEngine\FakeITemplateEngine;
 
 class GeneratorTest extends \PHPUnit_Framework_TestCase
 {
     public function testRender()
     {
         // arrange
-        $engine = new FakeTemplateEngine();
+        $engine = new FakeITemplateEngine();
         $resource = new FakeResource();
 
         $firstTemplateNames = ['a', 'b', 'c'];
@@ -33,7 +33,7 @@ class GeneratorTest extends \PHPUnit_Framework_TestCase
         foreach($renderedFiles as $i => $renderedFile)
         {
             self::assertSame($renderedFile->getTemplateName(), $allTemplateNames[$i]);
-            self::assertSame($renderedFile->getContents(), FakeTemplateEngine::CONTENT);
+            self::assertSame($renderedFile->getContents(), FakeITemplateEngine::CONTENT);
         }
     }
 }
