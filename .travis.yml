@@ -1,15 +1,9 @@
 language: php
 os:
   - linux
-  - osx
 
 php:
   - 7.0
   - nightly
-  - hhvm
-
-allow_failures:
-  - php: hhvm
-  - os: osx
 
 install: composer install
