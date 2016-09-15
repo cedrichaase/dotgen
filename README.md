@@ -43,35 +43,18 @@ For now, check out the [twig documentation for template designers](http://twig.s
 
 ### create a config file
 
-For now, use this as a template:
+Example configurations along with a simple template can be found in the `examples` folder.
 
-```ini
-[global]
-include_comments    = true
-template_engine     = twig
-template_dir        = path/to/templates
-output_dir          = path/to/write/rendering/output
+Each configuration consists of multiple _collections_.
+A _collection_ is a set of variable definitions along with names (paths) of templates
+that should be rendered using the same, shared set of variables.
+The names of the templates are defined in an array inside the collection named `__templates`.
 
-[name_of_a_text_file_group]
-text_file_paths[] = relative/path/to/text/file/1
-text_file_paths[] = relative/path/to/text/file/2
-some_var = some_value
-some_other_var = false
-this_is_an_array[] = this_is_the_first_element
-this_is_an_array[] = this_is_the_second_element
-;this is a comment
-```
-
-The `[global]` section is mandatory and has to include the variables
-`template_engine`, `template_dir` and `output_dir`.
-
-Right now, the only possible value for `template_engine` is `twig`.
-
-Further sections are optional, but make sense for creating groups of files
-that use the same scope of variables.
-Variables defined in the `[global]` section are accessible in any template,
-but are overwritten by variables with the same name defined at file_group
-scope.
+A configuration can also include a collection with the special name `global`.
+Variable definitions from this collection can be accessed from every collection defined
+within the same configuration.
+You can also choose to overwrite the global variable definition inside the scope of a collection
+by simply redefining the variable inside of it.
 
 
 ### download and run dotgen
@@ -81,6 +64,15 @@ Pre-compiled phar packages are available [here](https://github.com/cedrichaase/d
 Download one, then
 ```
 $ php dotgen.phar render path/to/config.ini
+```
+
+For a list of available command line options, run
+```
+$ php dotgen.phar help
+```
+or try
+```
+$ php dotgen.phar help render
 ```
 
 Command line interface is subject to change :)
@@ -97,7 +89,7 @@ $ cd dotgen
 
 $ composer install
 
-$ bin/dotgen render path/to/config.ini
+$ bin/dotgen render path/to/config/file
 ```
 
 You can also create a single-file executable phar package using
