@@ -35,12 +35,12 @@ class ResourceValidator implements IResourceValidator
         // seen files mapped as file => collection name
         $seenFiles = [];
 
-        foreach($collections as $i => $collection)
+        foreach($collections as $collection)
         {
             $collectionName = $collection->getName();
             $collectionFiles = $collection->getTemplates();
             
-            foreach($collectionFiles as $j => $file)
+            foreach($collectionFiles as $file)
             {
                 if(array_key_exists($file, $seenFiles))
                 {

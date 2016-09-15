@@ -33,7 +33,7 @@ class ParserManager
      */
     public function parse(string $string): array
     {
-        foreach($this->parsers as $i => $parser)
+        foreach($this->parsers as $parser)
         {
             if($parser->supports($string))
             {

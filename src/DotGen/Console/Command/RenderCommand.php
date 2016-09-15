@@ -126,7 +126,7 @@ class RenderCommand extends Command
         $renderedFiles = $generator->render();
 
         $mapper = new BaseDirTemplateMapper($outputDir);
-        foreach($renderedFiles as $i => $renderedFile)
+        foreach($renderedFiles as $renderedFile)
         {
             $renderedFilePath = $mapper->map($renderedFile->getTemplateName());
             file_put_contents($renderedFilePath, $renderedFile->getContents());

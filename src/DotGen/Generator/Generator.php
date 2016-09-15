@@ -58,7 +58,7 @@ class Generator
         ]);
 
         $renderedFiles = [];
-        foreach($collections as $i => $collection)
+        foreach($collections as $collection)
         {
             $renderedFiles = array_merge($renderedFiles, $this->renderCollection($collection));
         }
@@ -83,7 +83,7 @@ class Generator
         $templates = $collection->getTemplates();
         $renderedFiles = [];
 
-        foreach ($templates as $i => $template)
+        foreach ($templates as $template)
         {
             $renderedFiles[] = $this->renderTemplate($collection, $template);
         }
