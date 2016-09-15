@@ -8,6 +8,8 @@ use Twig_LoaderInterface;
 /**
  * Class TwigTemplateEngine
  *
+ * @codeCoverageIgnore
+ *
  * @package cedrichaase\DotGen\TemplateEngine
  */
 class TwigTemplateEngine implements ITemplateEngine
