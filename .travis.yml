@@ -1,11 +1,15 @@
 language: php
 os:
   - linux
+  - osx
+
 php:
   - 7.0
   - nightly
   - hhvm
 
-install: composer install
+allow_failures:
+  - php: hhvm
+  - os: osx
 
-before_script: echo 'Eval.EnableHipHopSyntax=true' >> ~/.phpenv/versions/$(phpenv version-name)/etc/conf.d/travis.ini
+install: composer install
