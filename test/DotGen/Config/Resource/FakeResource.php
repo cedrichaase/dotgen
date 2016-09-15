@@ -20,17 +20,7 @@ class FakeResource implements IResource
     /**
      * @var string
      */
-    private $engine;
-
-    /**
-     * @var string
-     */
-    private $inputPath;
-
-    /**
-     * @var string
-     */
-    private $outputPath;
+    private $templatePath;
 
     /**
      * Return the collections managed by this resource
@@ -43,33 +33,15 @@ class FakeResource implements IResource
     }
 
     /**
-     * Return the engine key of the engine to use for this resource
+     * Returns relative path of the template file
+     * for given template name
      *
+     * @param $template
      * @return string
      */
-    public function getEngine()
+    public function getTemplatePath($template)
     {
-        return $this->engine;
-    }
-
-    /**
-     * Return the path to find templates in
-     *
-     * @return string
-     */
-    public function getInputPath()
-    {
-        return $this->inputPath;
-    }
-
-    /**
-     * Return the path to output rendered text files to
-     *
-     * @return string
-     */
-    public function getOutputPath()
-    {
-        return $this->outputPath;
+        return $this->templatePath;
     }
 
     /**
@@ -81,26 +53,10 @@ class FakeResource implements IResource
     }
 
     /**
-     * @param string $engine
+     * @param string $templatePath
      */
-    public function setEngine($engine)
+    public function setTemplatePath($templatePath)
     {
-        $this->engine = $engine;
-    }
-
-    /**
-     * @param string $inputPath
-     */
-    public function setInputPath($inputPath)
-    {
-        $this->inputPath = $inputPath;
-    }
-
-    /**
-     * @param string $outputPath
-     */
-    public function setOutputPath($outputPath)
-    {
-        $this->outputPath = $outputPath;
+        $this->templatePath = $templatePath;
     }
 }
