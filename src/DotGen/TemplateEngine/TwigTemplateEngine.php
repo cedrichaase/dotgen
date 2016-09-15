@@ -65,6 +65,6 @@ class TwigTemplateEngine implements ITemplateEngine
     public function supports(string $path): bool
     {
         $suffix = '.' . self::FILE_EXTENSION;
-        return substr($path, strlen($suffix)) === $suffix;
+        return is_file($this->templateDir . DIRECTORY_SEPARATOR . $path . $suffix);
     }
 }
