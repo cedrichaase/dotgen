@@ -10,7 +10,7 @@ use Twig_LoaderInterface;
  *
  * @package cedrichaase\DotGen\TemplateEngine
  */
-class TwigITemplateEngine implements ITemplateEngine
+class TwigTemplateEngine implements ITemplateEngine
 {
     /**
      * File extension for twig templates
@@ -65,5 +65,15 @@ class TwigITemplateEngine implements ITemplateEngine
     public function getFileExtension(): string
     {
         return self::FILE_EXTENSION;
+    }
+
+    /**
+     * @param string $path
+     * @return bool
+     */
+    public function supports(string $path): bool
+    {
+        $suffix = '.' . self::FILE_EXTENSION;
+        return substr($path, strlen($suffix)) === $suffix;
     }
 }
