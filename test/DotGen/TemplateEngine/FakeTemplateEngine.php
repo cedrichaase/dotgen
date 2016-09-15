@@ -1,11 +1,22 @@
 <?php
 namespace DotGen\TemplateEngine;
 
-class FakeITemplateEngine implements ITemplateEngine
+class FakeTemplateEngine implements ITemplateEngine
 {
-    const FILE_EXTENSION = 'fake';
+    /**
+     * @var string
+     */
+    private $fileExtension;
 
-    const CONTENT = 'fake rendered content';
+    /**
+     * @var string
+     */
+    private $content;
+
+    /**
+     * @var bool
+     */
+    private $supports;
 
     /**
      * Render the template at given relative $path
@@ -20,7 +31,7 @@ class FakeITemplateEngine implements ITemplateEngine
      */
     public function render(string $path, array $data): string
     {
-        return self::CONTENT;
+        return $this->content;
     }
 
     /**
@@ -31,6 +42,47 @@ class FakeITemplateEngine implements ITemplateEngine
      */
     public function getFileExtension(): string
     {
-        return self::FILE_EXTENSION;
+        return $this->fileExtension;
+    }
+
+    /**
+     * @param string $path
+     * @return bool
+     */
+    public function supports(string $path): bool
+    {
+        return $this->supports;
+    }
+
+    /**
+     * @param boolean $supports
+     */
+    public function setSupports($supports)
+    {
+        $this->supports = $supports;
+    }
+
+    /**
+     * @return string
+     */
+    public function getContent()
+    {
+        return $this->content;
+    }
+
+    /**
+     * @param string $content
+     */
+    public function setContent($content)
+    {
+        $this->content = $content;
+    }
+
+    /**
+     * @param string $fileExtension
+     */
+    public function setFileExtension($fileExtension)
+    {
+        $this->fileExtension = $fileExtension;
     }
 }
