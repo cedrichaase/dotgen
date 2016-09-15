@@ -22,14 +22,6 @@ interface ITemplateEngine
     public function render(string $path, array $data): string;
 
     /**
-     * Returns the file extension for files that
-     * are written for this templating engine
-     *
-     * @return string
-     */
-    public function getFileExtension(): string;
-
-    /**
      * Check if the TemplateEngine can render the file located
      * at given path
      *

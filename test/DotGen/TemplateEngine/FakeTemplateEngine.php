@@ -6,11 +6,6 @@ class FakeTemplateEngine implements ITemplateEngine
     /**
      * @var string
      */
-    private $fileExtension;
-
-    /**
-     * @var string
-     */
     private $content;
 
     /**
@@ -32,17 +27,6 @@ class FakeTemplateEngine implements ITemplateEngine
     public function render(string $path, array $data): string
     {
         return $this->content;
-    }
-
-    /**
-     * Returns the file extension for files that
-     * are written for this templating engine
-     *
-     * @return string
-     */
-    public function getFileExtension(): string
-    {
-        return $this->fileExtension;
     }
 
     /**
@@ -76,13 +60,5 @@ class FakeTemplateEngine implements ITemplateEngine
     public function setContent($content)
     {
         $this->content = $content;
-    }
-
-    /**
-     * @param string $fileExtension
-     */
-    public function setFileExtension($fileExtension)
-    {
-        $this->fileExtension = $fileExtension;
     }
 }

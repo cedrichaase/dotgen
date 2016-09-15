@@ -57,17 +57,6 @@ class TwigTemplateEngine implements ITemplateEngine
     }
 
     /**
-     * Returns the file extension for files that
-     * are written for this templating engine
-     *
-     * @return string
-     */
-    public function getFileExtension(): string
-    {
-        return self::FILE_EXTENSION;
-    }
-
-    /**
      * @param string $path
      * @return bool
      */
