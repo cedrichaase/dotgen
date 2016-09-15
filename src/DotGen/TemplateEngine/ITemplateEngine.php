@@ -28,4 +28,13 @@ interface ITemplateEngine
      * @return string
      */
     public function getFileExtension(): string;
+
+    /**
+     * Check if the TemplateEngine can render the file located
+     * at given path
+     *
+     * @param string $path
+     * @return bool
+     */
+    public function supports(string $path): bool;
 }
