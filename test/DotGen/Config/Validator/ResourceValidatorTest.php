@@ -15,9 +15,6 @@ class ResourceValidatorTest extends \PHPUnit_Framework_TestCase
         $collection2 = new Collection('my_other_collection', [], ['a.txt']);
 
         $resource->setCollections([$collection1, $collection2]);
-        $resource->setEngine('twig');
-        $resource->setInputPath('/tmp');
-        $resource->setOutputPath('/tmp');
 
         // expect
         $this->expectException(DuplicateFileReferenceException::class);
@@ -35,9 +32,6 @@ class ResourceValidatorTest extends \PHPUnit_Framework_TestCase
         $collection2 = new Collection('my_other_collection', [], ['c.txt', 'd.txt']);
 
         $resource->setCollections([$collection1, $collection2]);
-        $resource->setEngine('twig');
-        $resource->setInputPath('/tmp');
-        $resource->setOutputPath('/tmp');
 
         // act
         $exn = null;
