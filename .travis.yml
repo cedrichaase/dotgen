@@ -7,3 +7,7 @@ php:
   - nightly
 
 install: composer install
+
+addons:
+  code_climate:
+    repo_token: e7fe54cf0e2cbf1c51df149b7f2911c812751f9154fe0ac797e38fb610eb00b4
