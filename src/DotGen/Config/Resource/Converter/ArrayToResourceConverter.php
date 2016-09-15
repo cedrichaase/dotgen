@@ -62,12 +62,13 @@ class ArrayToResourceConverter implements IArrayToResourceConverter
         foreach($rawCollections as $name => $rawCollection)
         {
             // extract and remove templates array from collection
-            $templates = $rawCollection[self::COLLECTION_KEY_TEMPLATES];
+            $templates = $rawCollection[self::COLLECTION_KEY_TEMPLATES] ?? null;
             if(!$templates)
             {
                 $this->logger->warning('No templates found for collection', [
                     'collection' => $name,
                 ]);
+                unset($rawCollection);
                 continue;
             }
 
