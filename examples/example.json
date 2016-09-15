@@ -1,0 +1,13 @@
+{
+  "global": {
+    "some_global_var": "some_value"
+  },
+  "my_collection": {
+    "__templates": [
+      "some_file.txt"
+    ],
+    "some_var": "Some variable content",
+    "elements": ["a", "b", "c"],
+    "render_this_part": true
+  }
+}
