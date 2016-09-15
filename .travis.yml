@@ -4,6 +4,7 @@ os:
 php:
   - 7.0
   - nightly
-  - hhvm
 
 install: composer install
+
+before_script: echo 'Eval.EnableHipHopSyntax=true' >> ~/.phpenv/versions/$(phpenv version-name)/etc/conf.d/travis.ini
