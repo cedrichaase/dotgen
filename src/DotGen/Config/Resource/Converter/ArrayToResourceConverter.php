@@ -56,7 +56,7 @@ class ArrayToResourceConverter implements IArrayToResourceConverter
     {
         $collections = [];
 
-        $global = $rawCollections[self::COLLECTION_NAME_GLOBAL];
+        $global = $rawCollections[self::COLLECTION_NAME_GLOBAL] ?? [];
         unset($rawCollections[self::COLLECTION_NAME_GLOBAL]);
 
         foreach($rawCollections as $name => $rawCollection)
