@@ -4,6 +4,7 @@ os:
 php:
   - 7.0
   - nightly
+  - hhvm
 
 install: composer install
 
