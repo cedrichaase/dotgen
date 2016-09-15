@@ -1,6 +1,6 @@
-[![Build Status](https://travis-ci.org/cedrichaase/dotgen.svg?branch=master)](https://travis-ci.org/cedrichaase/dotgen)
-
 # dotgen
+
+[![Build Status](https://travis-ci.org/cedrichaase/dotgen.svg?branch=master)](https://travis-ci.org/cedrichaase/dotgen)
 
 ## what is dotgen?
 
