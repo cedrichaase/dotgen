@@ -84,6 +84,8 @@ class ArrayToResourceConverter implements IArrayToResourceConverter
     }
 
     /**
+     * @codeCoverageIgnore
+     *
      * @param LoggerInterface $logger
      */
     public function setLogger(LoggerInterface $logger)

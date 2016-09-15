@@ -8,6 +8,8 @@ use DotGen\Config\Resource\Converter\TrivialTemplateMapper;
 /**
  * Class ConfigResource
  *
+ * @codeCoverageIgnore
+ *
  * @package DotGen\Config\Resource
  */
 class ConfigResource implements IResource

@@ -7,6 +7,8 @@ namespace DotGen\Config\Entity;
  * A single collection of files along with the variable values
  * that it should be rendered with
  *
+ * @codeCoverageIgnore
+ *
  * @package DotGen\Config
  */
 class Collection

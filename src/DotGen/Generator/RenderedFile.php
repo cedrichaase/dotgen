@@ -4,6 +4,8 @@ namespace DotGen\Generator;
 /**
  * Class RenderedFile
  *
+ * @codeCoverageIgnore
+ *
  * @package DotGen\Generator
  */
 class RenderedFile
