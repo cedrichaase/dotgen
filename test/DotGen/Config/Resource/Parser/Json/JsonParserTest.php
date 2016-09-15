@@ -52,4 +52,22 @@ class JsonParserTest extends \PHPUnit_Framework_TestCase
         self::assertSame($supported, true);
         self::assertSame($array, $expected);
     }
+
+    public function testParseJsonWithSyntaxErrors()
+    {
+        // arrange
+        $parser = new JsonParser();
+        $string = file_get_contents(self::jsonResourcesDir() . '/incorrect_syntax.json');
+
+        // expect
+        $this->expectException(JsonParserException::class);
+
+        // act
+        $supported = $parser->supports($string);
+        $array = $parser->parse($string);
+
+        // assert
+        assertSame($supported, false);
+        assertSame((bool) $array, false);
+    }
 }
