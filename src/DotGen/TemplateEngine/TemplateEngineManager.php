@@ -21,6 +21,7 @@ class TemplateEngineManager implements ITemplateEngineManager
     public function __construct(string $templateDir)
     {
         $this->engines = [];
+        $this->registerEngine(new DwooTemplateEngine($templateDir));
         $this->registerEngine(new TwigTemplateEngine($templateDir));
     }
 
