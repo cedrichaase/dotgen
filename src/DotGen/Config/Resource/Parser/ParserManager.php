@@ -57,4 +57,17 @@ class ParserManager
     {
         array_unshift($this->parsers, $parser);
     }
+
+    /**
+     * Clears all registered parses and exclusively
+     * registers the given Parser
+     *
+     * @param IParser $parser
+     */
+    public function registerExclusive(IParser $parser)
+    {
+        unset($this->parsers);
+        $this->parsers = [];
+        $this->registerParser($parser);
+    }
 }
