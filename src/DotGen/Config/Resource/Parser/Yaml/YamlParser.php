@@ -17,7 +17,7 @@ class YamlParser implements IParser
      */
     public function parse(string $string): array
     {
-        return Yaml::parse($string);
+        return (array) Yaml::parse($string);
     }
 
     /**
