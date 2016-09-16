@@ -1,13 +1,5 @@
 <?php
-/**
- * Created by PhpStorm.
- * User: cedric
- * Date: 9/15/16
- * Time: 3:23 AM
- */
-
 namespace DotGen\Config\Resource\Parser;
-
 
 class ParserManagerTest extends \PHPUnit_Framework_TestCase
 {
