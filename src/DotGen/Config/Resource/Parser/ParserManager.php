@@ -2,6 +2,7 @@
 namespace DotGen\Config\Resource\Parser;
 use DotGen\Config\Resource\Parser\Ini\IniParser;
 use DotGen\Config\Resource\Parser\Json\JsonParser;
+use DotGen\Config\Resource\Parser\Yaml\YamlParser;
 
 /**
  * Class ParserManager
@@ -22,6 +23,7 @@ class ParserManager
     {
         $this->registerParser(new IniParser());
         $this->registerParser(new JsonParser());
+        $this->registerParser(new YamlParser());
     }
 
     /**
