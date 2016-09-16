@@ -1,0 +1,23 @@
+# Example configuration file for use with dotgen
+#
+global:
+  some_global_var: some_value
+
+# Further sections are interpreted as 'collections'
+# Collections can include multiple files, defined in the __templates array
+# Each of these files will be rendered using the same set of variables
+# read from the collection
+# Variables defined here will override definitions from the [global] section
+#
+my_collection:
+  __templates: [some_file.txt]
+  some_var: Some variable content
+  elements:
+    - this
+    - is
+    - a yaml config
+    - file
+  render_this_part: true
+
+# For more information, check out the symfony/yaml docs here:
+# http://symfony.com/doc/current/components/yaml.html
