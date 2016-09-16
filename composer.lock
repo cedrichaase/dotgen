@@ -4,9 +4,45 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "1b08bb6ad6c3d88ac983f27de2c0489f",
-    "content-hash": "6bae7b72163f807fdc9918b7edeafd35",
+    "hash": "116a65717132f435c6500e3402e692b9",
+    "content-hash": "edb465a265c2e1e887efc48cc9647b39",
     "packages": [
+        {
+            "name": "dwoo/dwoo",
+            "version": "1.2.2",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/dwoo-project/dwoo.git",
+                "reference": "15c12bb14ab050edbbddfffdd92eec89d1ad8111"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/dwoo-project/dwoo/zipball/15c12bb14ab050edbbddfffdd92eec89d1ad8111",
+                "reference": "15c12bb14ab050edbbddfffdd92eec89d1ad8111",
+                "shasum": ""
+            },
+            "require": {
+                "php": ">=5.3"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-0": {
+                    "": "lib/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "LGPL"
+            ],
+            "authors": [
+                {
+                    "name": "David Sanchez",
+                    "email": "david38sanchez@gmail.com"
+                }
+            ],
+            "description": "Dwoo is a PHP5 template engine which is (almost) fully compatible with Smarty templates and plugins, but is written from scratch for PHP5, and adds many features.",
+            "time": "2016-09-09 20:21:03"
+        },
         {
             "name": "monolog/monolog",
             "version": "1.21.0",
