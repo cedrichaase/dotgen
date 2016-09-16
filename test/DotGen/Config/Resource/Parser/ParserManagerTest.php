@@ -35,11 +35,13 @@ class ParserManagerTest extends \PHPUnit_Framework_TestCase
     {
         // arrange
         $manager = new ParserManager();
+        $parser = new FakeParser([], false);
+        $manager->registerExclusive($parser);
 
         // expect
         $this->expectException(ParserException::class);
 
-        //act
-        $parsed = $manager->parse('...'); // try to parse random garbage
+        // act
+        $parsed = $manager->parse('');
     }
 }
