@@ -16,6 +16,13 @@ use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Input\InputOption;
 use Symfony\Component\Console\Output\OutputInterface;
 
+/**
+ * Class RenderCommand
+ *
+ * @codeCoverageIgnore
+ *
+ * @package DotGen\Console\Command
+ */
 class RenderCommand extends Command
 {
     use HandlesFilesystemTrait;

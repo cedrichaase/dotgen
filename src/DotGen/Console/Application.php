@@ -8,6 +8,8 @@ use Symfony\Component\Console\Command\Command;
 /**
  * Class Application
  *
+ * @codeCoverageIgnore
+ *
  * @package cedrichaase\DotGen\Console
  */
 class Application extends BaseApplication
