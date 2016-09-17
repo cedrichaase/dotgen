@@ -1,0 +1,15 @@
+Some static content: {{ some_var }}
+
+{% if render_this_part %}
+I can be switched on and off
+{% endif %}
+
+{% for element in elements %}
+    {{- element }}
+{% endfor %}
+
+{{ inherited }}
+
+{{ local_inherited }}
+
+{{ from_grandparent }}

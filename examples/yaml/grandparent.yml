@@ -1,0 +1,6 @@
+global:
+  __name: grandparent
+  __abstract: true
+
+my_collection:
+  from_grandparent: Grandpa says hi!

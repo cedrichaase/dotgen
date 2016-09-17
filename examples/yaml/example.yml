@@ -1,6 +1,8 @@
 # Example configuration file for use with dotgen
 #
 global:
+  __name: child
+  __extends: parent
   some_global_var: some_value
 
 # Further sections are interpreted as 'collections'
@@ -16,8 +18,9 @@ my_collection:
     - this
     - is
     - a yaml config
-    - file
+    - bbb
   render_this_part: true
+  local_inherited: xyz
 
 # For more information, check out the symfony/yaml docs here:
 # http://symfony.com/doc/current/components/yaml.html

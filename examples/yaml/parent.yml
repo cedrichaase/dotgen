@@ -1,0 +1,8 @@
+global:
+  __abstract: true
+  __name: parent
+  __extends: grandparent
+  inherited: This value was inherited
+
+my_collection:
+  local_inherited: abc def
