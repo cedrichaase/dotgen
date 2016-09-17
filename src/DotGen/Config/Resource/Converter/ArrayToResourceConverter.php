@@ -21,6 +21,21 @@ class ArrayToResourceConverter implements IArrayToResourceConverter
     const COLLECTION_NAME_GLOBAL = 'global';
 
     /**
+     * The reserved collection array key for extending another resource
+     */
+    const COLLECTION_KEY_EXTENDS = '__extends';
+
+    /**
+     * The reserved collection array key for naming a resource
+     */
+    const COLLECTION_KEY_NAME = '__name';
+
+    /**
+     * The reserved collection array key for making resources abstract
+     */
+    const COLLECTION_KEY_ABSTRACT = '__abstract';
+
+    /**
      * @var LoggerInterface
      */
     private $logger;
@@ -40,9 +55,13 @@ class ArrayToResourceConverter implements IArrayToResourceConverter
     public function convert(array $array): IResource
     {
         $collections = $this->extractCollections($array);
+        $name = $this->extractName($array);
+        $extends = $this->extractExtends($array);
 
         $resource = new ConfigResource();
         $resource->setCollections($collections);
+        $resource->setName($name);
+        $resource->setExtends($extends);
 
         return $resource;
     }
@@ -59,11 +78,13 @@ class ArrayToResourceConverter implements IArrayToResourceConverter
         $global = $rawCollections[self::COLLECTION_NAME_GLOBAL] ?? [];
         unset($rawCollections[self::COLLECTION_NAME_GLOBAL]);
 
+        $abstract = $global[self::COLLECTION_KEY_ABSTRACT] ?? false;
+
         foreach($rawCollections as $name => $rawCollection)
         {
             // extract and remove templates array from collection
-            $templates = $rawCollection[self::COLLECTION_KEY_TEMPLATES] ?? null;
-            if(!$templates)
+            $templates = $rawCollection[self::COLLECTION_KEY_TEMPLATES] ?? [];
+            if(!$templates && !$abstract)
             {
                 $this->logger->warning('No templates found for collection', [
                     'collection' => $name,
@@ -72,16 +93,44 @@ class ArrayToResourceConverter implements IArrayToResourceConverter
                 continue;
             }
 
-            unset($rawCollection[self::COLLECTION_KEY_TEMPLATES]);
-
             // merge with global
             $rawCollection = array_merge($global, $rawCollection);
 
+            foreach($this->reservedKeys() as $key)
+            {
+                unset($rawCollection[$key]);
+            }
+
             // push collection
-            $collections[] = new Collection($name, $rawCollection, $templates);
+            $collections[$name] = new Collection($name, $rawCollection, $templates);
         }
 
         return $collections;
+    }
+
+    /**
+     * @param array $array
+     * 
+     * @return string
+     */
+    private function extractName(array $array): string
+    {
+        $name = $array[self::COLLECTION_NAME_GLOBAL][self::COLLECTION_KEY_NAME] ?? null;
+
+        if(!$name)
+        {
+            $name = substr(sha1(json_encode($array)), 0, 7);
+        }
+
+        return $name;
+    }
+
+    /*
+     * @return string
+     */
+    private function extractExtends(array $array): string
+    {
+        return $array[self::COLLECTION_NAME_GLOBAL][self::COLLECTION_KEY_EXTENDS] ?? '';
     }
 
     /**
@@ -92,5 +141,18 @@ class ArrayToResourceConverter implements IArrayToResourceConverter
     public function setLogger(LoggerInterface $logger)
     {
         $this->logger = $logger;
+    }
+
+    /**
+     * @return string[]
+     */
+    private function reservedKeys()
+    {
+        return [
+            self::COLLECTION_KEY_ABSTRACT,
+            self::COLLECTION_KEY_NAME,
+            self::COLLECTION_KEY_EXTENDS,
+            self::COLLECTION_KEY_TEMPLATES,
+        ];
     }
 }
