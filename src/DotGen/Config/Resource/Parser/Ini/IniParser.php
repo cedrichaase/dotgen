@@ -23,6 +23,11 @@ class IniParser implements IParser
      */
     public function parse(string $string): array
     {
+        set_error_handler(function() {
+            restore_error_handler();
+            throw new IniParserException("Error parsing INI string");
+        }, E_WARNING);
+
         $parsed = parse_ini_string($string, true, INI_SCANNER_TYPED);
 
         if(!$parsed)
