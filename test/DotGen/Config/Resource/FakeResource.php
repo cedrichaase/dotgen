@@ -13,6 +13,16 @@ use DotGen\Config\Resource\IResource;
 class FakeResource implements IResource
 {
     /**
+     * @var string
+     */
+    private $name;
+
+    /**
+     * @var string
+     */
+    private $extends;
+
+    /**
      * @var Collection[]
      */
     private $collections;
@@ -39,7 +49,7 @@ class FakeResource implements IResource
      * @param $template
      * @return string
      */
-    public function getTemplatePath($template)
+    public function getTemplatePath($template): string
     {
         return $this->templatePath;
     }
@@ -58,5 +68,42 @@ class FakeResource implements IResource
     public function setTemplatePath($templatePath)
     {
         $this->templatePath = $templatePath;
+    }
+
+    /**
+     * Return the (id) name of the resource
+     *
+     * @return string
+     */
+    public function getName(): string
+    {
+        return $this->name;
+    }
+
+    /**
+     * Return the name of the resource this
+     * resource extends
+     *
+     * @return string
+     */
+    public function getExtends(): string
+    {
+        return $this->extends;
+    }
+
+    /**
+     * @param string $name
+     */
+    public function setName($name)
+    {
+        $this->name = $name;
+    }
+
+    /**
+     * @param string $extends
+     */
+    public function setExtends($extends)
+    {
+        $this->extends = $extends;
     }
 }
