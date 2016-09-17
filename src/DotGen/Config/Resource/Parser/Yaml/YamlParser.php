@@ -3,6 +3,7 @@ namespace DotGen\Config\Resource\Parser\Yaml;
 
 use DotGen\Config\Resource\Parser\IParser;
 use DotGen\Config\Resource\Parser\ParserException;
+use Symfony\Component\Yaml\Exception\ParseException;
 use Symfony\Component\Yaml\Yaml;
 
 class YamlParser implements IParser
@@ -17,7 +18,12 @@ class YamlParser implements IParser
      */
     public function parse(string $string): array
     {
-        return (array) Yaml::parse($string);
+        try {
+            return (array) Yaml::parse($string);
+        } catch (ParseException $e)
+        {
+            throw new YamlParserException('Unable to parse string as yaml');
+        }
     }
 
     /**
@@ -33,7 +39,7 @@ class YamlParser implements IParser
 
         try {
             Yaml::parse($string);
-        } catch (ParserException $e)
+        } catch (ParseException $e)
         {
             $supports = false;
         }
