@@ -94,7 +94,7 @@ class InheritanceHandler
                     $childCollection->getTemplates()
                 );
 
-                $mergedCollections[] = new Collection(
+                $mergedCollections[$childCollection->getName()] = new Collection(
                     $childCollection->getName(),
                     $mergedContent,
                     $mergedTemplates
@@ -102,7 +102,7 @@ class InheritanceHandler
             }
             else
             {
-                $mergedCollections[] = $parentCollection;
+                $mergedCollections[$parentCollection->getName()] = $parentCollection;
             }
         }
 
