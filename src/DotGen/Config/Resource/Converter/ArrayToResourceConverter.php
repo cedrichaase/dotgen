@@ -49,9 +49,14 @@ class ArrayToResourceConverter implements IArrayToResourceConverter
      */
     public function convert(array $array): IResource
     {
-        $collections = $this->extractCollections($array);
         $name = $this->extractName($array);
+
+        $this->logger->debug('Converting array to resource', [
+            'name' => $name,
+        ]);
+
         $extends = $this->extractExtends($array);
+        $collections = $this->extractCollections($array);
 
         $resource = new ConfigResource();
         $resource->setCollections($collections);
