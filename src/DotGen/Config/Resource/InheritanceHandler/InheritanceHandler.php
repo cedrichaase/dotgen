@@ -82,7 +82,7 @@ class InheritanceHandler
         {
             $parentCollection = $parentCollections[$childCollection->getName()] ?? '';
 
-            if($parentCollection)
+            if($parentCollection && $childCollection)
             {
                 $mergedContent = array_replace_recursive(
                     $parentCollection->getContent(),
@@ -100,9 +100,13 @@ class InheritanceHandler
                     $mergedTemplates
                 );
             }
-            else
+            elseif(!$parentCollection && $childCollection)
             {
                 $mergedCollections[] = $childCollection;
+            }
+            elseif($parentCollection && !$childCollection)
+            {
+                $mergedCollections[] = $parentCollection;
             }
         }
 
