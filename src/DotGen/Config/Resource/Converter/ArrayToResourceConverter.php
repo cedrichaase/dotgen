@@ -82,8 +82,6 @@ class ArrayToResourceConverter implements IArrayToResourceConverter
                 $this->logger->warning('No templates found for collection', [
                     'collection' => $name,
                 ]);
-                unset($rawCollection);
-                continue;
             }
 
             // merge with global
