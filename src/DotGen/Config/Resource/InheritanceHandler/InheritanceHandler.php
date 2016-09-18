@@ -45,8 +45,23 @@ class InheritanceHandler
      */
     public function extend(IResource $child): IResource
     {
+        // first, we visit the child
+        $visited = [$child->getName() => true];
+
         do {
+            if (true === ($visited[$child->getExtends()] ?? false))
+            {
+                $this->logger->warning('You have a cyclical dependency in your inheritance hierarchy', [
+                    'resources' => array_keys($visited),
+                ]);
+
+                break;
+            }
+
+            // next, we visit the parents
+            $visited[$child->getExtends()] = true;
             $child = $this->doExtend($child);
+
         } while($child->getExtends());
 
         return $child;
