@@ -69,10 +69,10 @@ class InheritanceHandler
     }
 
     /**
-     * @param array $childCollections
-     * @param array $parentCollections
+     * @param Collection[] $childCollections
+     * @param Collection[] $parentCollections
      *
-     * @return array $mergedCollections
+     * @return Collection[] $mergedCollections
      */
     private function extendCollections(array $childCollections, array $parentCollections)
     {
