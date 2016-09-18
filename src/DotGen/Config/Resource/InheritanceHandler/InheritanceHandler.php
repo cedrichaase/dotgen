@@ -6,6 +6,8 @@ use DotGen\Config\Resource\ConfigResource;
 use DotGen\Config\Resource\IResource;
 use DotGen\Config\Resource\Repository\IResourceRepository;
 use DotGen\Config\Resource\Repository\ResourceRepositoryException;
+use Psr\Log\LoggerInterface;
+use Psr\Log\NullLogger;
 
 /**
  * Class InheritanceHandler
@@ -14,6 +16,11 @@ use DotGen\Config\Resource\Repository\ResourceRepositoryException;
  */
 class InheritanceHandler
 {
+    /**
+     * @var LoggerInterface
+     */
+    private $logger;
+
     /**
      * @var IResourceRepository[]
      */
@@ -25,6 +32,7 @@ class InheritanceHandler
     public function __construct()
     {
         $this->repositories = [];
+        $this->logger = new NullLogger();
     }
 
     /**
@@ -138,5 +146,13 @@ class InheritanceHandler
     public function registerRepository(IResourceRepository $repository)
     {
         array_unshift($this->repositories, $repository);
+    }
+
+    /**
+     * @param LoggerInterface $logger
+     */
+    public function setLogger(LoggerInterface $logger)
+    {
+        $this->logger = $logger;
     }
 }
