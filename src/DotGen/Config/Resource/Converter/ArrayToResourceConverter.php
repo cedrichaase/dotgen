@@ -31,11 +31,6 @@ class ArrayToResourceConverter implements IArrayToResourceConverter
     const COLLECTION_KEY_NAME = '__name';
 
     /**
-     * The reserved collection array key for making resources abstract
-     */
-    const COLLECTION_KEY_ABSTRACT = '__abstract';
-
-    /**
      * @var LoggerInterface
      */
     private $logger;
@@ -78,13 +73,11 @@ class ArrayToResourceConverter implements IArrayToResourceConverter
         $global = $rawCollections[self::COLLECTION_NAME_GLOBAL] ?? [];
         unset($rawCollections[self::COLLECTION_NAME_GLOBAL]);
 
-        $abstract = $global[self::COLLECTION_KEY_ABSTRACT] ?? false;
-
         foreach($rawCollections as $name => $rawCollection)
         {
             // extract and remove templates array from collection
             $templates = $rawCollection[self::COLLECTION_KEY_TEMPLATES] ?? [];
-            if(!$templates && !$abstract)
+            if(!$templates)
             {
                 $this->logger->warning('No templates found for collection', [
                     'collection' => $name,
@@ -149,7 +142,6 @@ class ArrayToResourceConverter implements IArrayToResourceConverter
     private function reservedKeys()
     {
         return [
-            self::COLLECTION_KEY_ABSTRACT,
             self::COLLECTION_KEY_NAME,
             self::COLLECTION_KEY_EXTENDS,
             self::COLLECTION_KEY_TEMPLATES,
