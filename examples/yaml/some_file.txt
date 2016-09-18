@@ -1,0 +1,14 @@
+Some static content: Some variable content
+
+I can be switched on and off
+
+this
+is
+a yaml config
+bbb
+
+This value was inherited
+
+xyz
+
+Grandpa says hi!

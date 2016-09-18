@@ -3,4 +3,5 @@ global:
   __abstract: true
 
 my_collection:
+  __templates: [some_file.txt]
   from_grandparent: Grandpa says hi!
