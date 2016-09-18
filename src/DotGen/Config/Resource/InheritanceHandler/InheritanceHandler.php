@@ -38,13 +38,13 @@ class InheritanceHandler
     public function extend(IResource $child): IResource
     {
         do {
-            $child = $this->extendRecursive($child);
+            $child = $this->doExtend($child);
         } while($child->getExtends());
 
         return $child;
     }
 
-    private function extendRecursive(IResource $child): IResource
+    private function doExtend(IResource $child): IResource
     {
         $parentName = $child->getExtends();
 
