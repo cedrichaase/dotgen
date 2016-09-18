@@ -1,14 +1,10 @@
 <?php
 namespace DotGen\Console\Command;
 
-use DotGen\Config\Resource\Converter\ArrayToResourceConverter;
-use DotGen\Config\Resource\Converter\BaseDirTemplateMapper;
-use DotGen\Config\Resource\InheritanceHandler\InheritanceHandler;
-use DotGen\Config\Resource\Parser\ParserManager;
-use DotGen\Config\Resource\Repository\File\FileResourceRepository;
+use DotGen\Api\ApiException;
+use DotGen\Api\FileSystemInput;
+use DotGen\Api\FileSystemOutput;
 use DotGen\File\HandlesFilesystemTrait;
-use DotGen\Generator\Generator;
-use DotGen\TemplateEngine\TemplateEngineManager;
 use Monolog\Logger;
 use Psr\Log\NullLogger;
 use Symfony\Bridge\Monolog\Handler\ConsoleHandler;
@@ -150,46 +146,30 @@ class RenderCommand extends Command
             $logger->pushHandler(new ConsoleHandler($output));
         }
 
-        $config = file_get_contents($path);
-        $parser = new ParserManager();
-        $parsed = $parser->parse($config);
 
-        // convert parsed array to resource
-        $converter = new ArrayToResourceConverter();
-        $converter->setLogger($logger);
-        $resource = $converter->convert($parsed);
-
-
-        $startInheritance = microtime(true);
-        // handle inheritance
-        $handler = new InheritanceHandler();
-        foreach($includes as $include)
-        {
-            $repo = new FileResourceRepository($include);
-            $handler->registerRepository($repo);
-        }
-        $resource = $handler->extend($resource);
-
-        $logger->info('Done handling inheritance', [
-            'time' => microtime(true) - $startInheritance,
+        $logger->debug('We are ready to roll...', [
+            'time' => microtime(true) - $startExecute,
         ]);
 
-        // begin render process
-        $engine = new TemplateEngineManager($templateDir);
+        try {
+            // handle input
+            $dotgenInput = new FileSystemInput();
+            $dotgenInput->setLogger($logger);
+            $resource = $dotgenInput->process($path, $includes);
 
-        $generator = new Generator($resource, $engine);
-        $generator->setLogger($logger);
+            $logger->debug('Input processing done, let\'s render some text', [
+                'time' => microtime(true) - $startExecute,
+            ]);
 
-        $renderedFiles = $generator->render();
+            // handle output
+            $dotgenOutput = new FileSystemOutput();
+            $dotgenOutput->process($templateDir, $outputDir, $resource);
 
-        $mapper = new BaseDirTemplateMapper($outputDir);
-        foreach($renderedFiles as $renderedFile)
-        {
-            $renderedFilePath = $mapper->map($renderedFile->getTemplateName());
-            file_put_contents($renderedFilePath, $renderedFile->getContents());
+        } catch(ApiException $e) {
+            exit(1);
         }
 
-        $logger->info('Finished execution', [
+        $logger->info('All done!', [
             'time' => microtime(true) - $startExecute,
         ]);
 
