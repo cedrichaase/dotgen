@@ -2,6 +2,7 @@
 namespace DotGen\Config\Resource\Parser\Json;
 
 use DotGen\Config\Resource\Parser\IParser;
+use DotGen\Config\Resource\Parser\ParseCache;
 use DotGen\Config\Resource\Parser\ParserException;
 
 /**
@@ -19,6 +20,19 @@ class JsonParser implements IParser
     const MAX_DEPTH = 512;
 
     /**
+     * @var ParseCache
+     */
+    private $cache;
+
+    /**
+     * JsonParser constructor.
+     */
+    public function __construct()
+    {
+        $this->cache = new ParseCache();
+    }
+
+    /**
      * Parse the given string to an array
      *
      * @param string $string
@@ -28,14 +42,7 @@ class JsonParser implements IParser
      */
     public function parse(string $string): array
     {
-        $parsed = json_decode($string, true, self::MAX_DEPTH);
-        
-        if(!$parsed)
-        {
-            throw new JsonParserException("Error parsing JSON string");
-        }
-
-        return $parsed;
+        return $this->doParse($string);
     }
 
     /**
@@ -51,7 +58,7 @@ class JsonParser implements IParser
 
         try
         {
-            $this->parse($string);
+            $this->doParse($string);
         }
         catch(JsonParserException $e)
         {
@@ -59,5 +66,28 @@ class JsonParser implements IParser
         }
 
         return $supports;
+    }
+
+    /**
+     * @param $string
+     * @return array
+     *
+     * @throws JsonParserException
+     */
+    private function doParse($string): array
+    {
+        if(!$parsed = $this->cache->find($string))
+        {
+            $parsed = json_decode($string, true, self::MAX_DEPTH);
+
+            if(!$parsed)
+            {
+                throw new JsonParserException("Error parsing JSON string");
+            }
+            
+            $this->cache->save($string, $parsed);
+        }
+
+        return $parsed;
     }
 }

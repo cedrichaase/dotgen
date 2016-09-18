@@ -2,12 +2,26 @@
 namespace DotGen\Config\Resource\Parser\Yaml;
 
 use DotGen\Config\Resource\Parser\IParser;
+use DotGen\Config\Resource\Parser\ParseCache;
 use DotGen\Config\Resource\Parser\ParserException;
 use Symfony\Component\Yaml\Exception\ParseException;
 use Symfony\Component\Yaml\Yaml;
 
 class YamlParser implements IParser
 {
+    /**
+     * @var ParseCache
+     */
+    private $cache;
+
+    /**
+     * YamlParser constructor.
+     */
+    public function __construct()
+    {
+        $this->cache = new ParseCache();
+    }
+
     /**
      * Parse the given string to an array
      *
@@ -19,7 +33,7 @@ class YamlParser implements IParser
     public function parse(string $string): array
     {
         try {
-            return (array) Yaml::parse($string);
+            return (array) $this->doParse($string);
         } catch (ParseException $e)
         {
             throw new YamlParserException('Unable to parse string as yaml');
@@ -38,12 +52,29 @@ class YamlParser implements IParser
         $supports = true;
 
         try {
-            Yaml::parse($string);
+            $this->doParse($string);
         } catch (ParseException $e)
         {
             $supports = false;
         }
 
         return $supports;
+    }
+
+    /**
+     * @param $string
+     *
+     * @return array
+     */
+    private function doParse($string)
+    {
+        if(!$parsed = $this->cache->find($string))
+        {
+            $parsed = (array) Yaml::parse($string);
+
+            $this->cache->save($string, $parsed);
+        }
+
+        return $parsed;
     }
 }

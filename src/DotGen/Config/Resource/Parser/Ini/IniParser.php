@@ -2,6 +2,7 @@
 namespace DotGen\Config\Resource\Parser\Ini;
 
 use DotGen\Config\Resource\Parser\IParser;
+use DotGen\Config\Resource\Parser\ParseCache;
 use DotGen\Config\Resource\Parser\ParserException;
 
 /**
@@ -14,6 +15,19 @@ use DotGen\Config\Resource\Parser\ParserException;
 class IniParser implements IParser
 {
     /**
+     * @var ParseCache
+     */
+    private $cache;
+
+    /**
+     * IniParser constructor.
+     */
+    public function __construct()
+    {
+        $this->cache = new ParseCache();
+    }
+
+    /**
      * Parse the given string to an array
      *
      * @param string $string
@@ -23,19 +37,7 @@ class IniParser implements IParser
      */
     public function parse(string $string): array
     {
-        set_error_handler(function() {
-            restore_error_handler();
-            throw new IniParserException("Error parsing INI string");
-        }, E_WARNING);
-
-        $parsed = parse_ini_string($string, true, INI_SCANNER_TYPED);
-
-        if(!$parsed)
-        {
-            throw new IniParserException("Error parsing INI string");
-        }
-
-        return $parsed;
+        return $this->doParse($string);
     }
 
     /**
@@ -48,7 +50,7 @@ class IniParser implements IParser
 
         try
         {
-            $this->parse($string);
+            $this->doParse($string);
         }
         catch(IniParserException $e)
         {
@@ -56,5 +58,33 @@ class IniParser implements IParser
         }
 
         return $supports;
+    }
+
+    /**
+     * @param $string
+     * @return array
+     *
+     * @throws IniParserException
+     */
+    private function doParse($string)
+    {
+        if(!$parsed = $this->cache->find($string))
+        {
+            set_error_handler(function() {
+                restore_error_handler();
+                throw new IniParserException("Error parsing INI string");
+            }, E_WARNING);
+
+            $parsed = parse_ini_string($string, true, INI_SCANNER_TYPED);
+
+            if(!$parsed)
+            {
+                throw new IniParserException("Error parsing INI string");
+            }
+
+            $this->cache->save($string, $parsed);
+        }
+
+        return $parsed;
     }
 }
