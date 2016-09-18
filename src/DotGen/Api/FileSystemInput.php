@@ -121,6 +121,7 @@ class FileSystemInput
     public function setLogger(LoggerInterface $logger)
     {
         $this->logger = $logger;
-        $this->converter->setLogger($this->logger);
+        $this->converter->setLogger($logger);
+        $this->inheritor->setLogger($logger);
     }
 }
