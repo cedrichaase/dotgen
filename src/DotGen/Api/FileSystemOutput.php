@@ -40,7 +40,7 @@ class FileSystemOutput
     /**
      * @param LoggerInterface $logger
      */
-    private function setLogger(LoggerInterface $logger)
+    public function setLogger(LoggerInterface $logger)
     {
         $this->logger = $logger;
     }

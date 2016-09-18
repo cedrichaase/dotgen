@@ -163,6 +163,7 @@ class RenderCommand extends Command
 
             // handle output
             $dotgenOutput = new FileSystemOutput();
+            $dotgenOutput->setLogger($logger);
             $dotgenOutput->process($templateDir, $outputDir, $resource);
 
         } catch(ApiException $e) {
