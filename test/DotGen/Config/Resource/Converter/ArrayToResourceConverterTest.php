@@ -52,7 +52,7 @@ class ArrayToResourceConverterTest extends \PHPUnit_Framework_TestCase
         // assert
         self::assertSame(count($collections), 2);
 
-        $myCollection = $collections[0];
+        $myCollection = $collections['my_collection'];
         self::assertSame($myCollection->getName(), 'my_collection');
         self::assertSame($myCollection->getContent(), [
             // some_global_var gets added
@@ -80,7 +80,7 @@ class ArrayToResourceConverterTest extends \PHPUnit_Framework_TestCase
             'second-template-name',
         ]);
 
-        $anotherCollection = $collections[1];
+        $anotherCollection = $collections['another_collection'];
         self::assertSame($anotherCollection->getName(), 'another_collection');
         self::assertSame($anotherCollection->getContent(), [
             'some_global_var' => 'y',
@@ -90,23 +90,5 @@ class ArrayToResourceConverterTest extends \PHPUnit_Framework_TestCase
             'third-template-name',
             'fourth-template-name',
         ]);
-    }
-
-    public function testDropEmptyCollections()
-    {
-        // arrange
-        $converter = new ArrayToResourceConverter();
-
-        $array = [
-            'my_collection' => [
-                'a' => 'b',
-            ],
-        ];
-
-        // act
-        $resource = $converter->convert($array);
-
-        // assert
-        self::assertSame(count($resource->getCollections()), 0);
     }
 }
