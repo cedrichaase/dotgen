@@ -43,6 +43,20 @@ class IniParserTest extends \PHPUnit_Framework_TestCase
         ];
     }
 
+    public function nonIniDataProvider()
+    {
+        $files = array_merge(
+            self::getAllJsonResources(),
+            self::getAllYamlResources()
+        );
+
+        $files = array_map(function($file) {
+            return ['file' => $file];
+        }, $files);
+
+        return $files;
+    }
+
     /**
      * @dataProvider iniDataProvider
      *
@@ -64,21 +78,39 @@ class IniParserTest extends \PHPUnit_Framework_TestCase
         self::assertSame($array, $expected);
     }
 
-    public function testParseIniWithSyntaxErrors()
+    /**
+     * @dataProvider nonIniDataProvider
+     *
+     * @param $file
+     */
+    public function testDoNotSupportNonIni($file)
     {
         // arrange
         $parser = new IniParser();
-        $string = file_get_contents(self::iniResourcesDir() . '/incorrect_syntax.ini');
+        $string = file_get_contents($file);
+
+        // act
+        $supported = $parser->supports($string);
+
+        // assert
+        self::assertSame($supported, false);
+    }
+
+    /**
+     * @dataProvider nonIniDataProvider
+     *
+     * @param $file
+     */
+    public function testThrowExceptionOnParseNonIni($file)
+    {
+        // arrange
+        $parser = new IniParser();
+        $string = file_get_contents($file);
 
         // expect
         $this->expectException(IniParserException::class);
 
         // act
-        $supported = $parser->supports($string);
-        $array = $parser->parse($string);
-
-        // assert
-        assertSame($supported, false);
-        assertSame((bool) $array, false);
+        $parser->parse($string);
     }
 }

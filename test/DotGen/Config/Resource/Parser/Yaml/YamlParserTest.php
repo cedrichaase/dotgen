@@ -1,25 +1,28 @@
 <?php
-namespace DotGen\Config\Resource\Parser\Json;
+namespace DotGen\Config\Resource\Parser\Yaml;
 
 use DotGen\Traits\UsesTestResourcesTrait;
 
-class JsonParserTest extends \PHPUnit_Framework_TestCase
+/**
+ * Class YamlParserTest
+ *
+ * @package DotGen\Config\Resource\Parser\Yaml
+ */
+class YamlParserTest extends \PHPUnit_Framework_TestCase
 {
     use UsesTestResourcesTrait;
 
-    public function jsonDataProvider()
+    public function yamlDataProvider()
     {
         return [
             [
-                'file' => '/base_example.json',
+                'file' => '/base_example.yml',
                 'expected' => [
                     'global' => [
-                        '__templates_dir' => '/tmp/a',
-                        '__target_dir' => '/tmp/b',
-                        '__engine' => 'twig',
+                        '__name' => 'base_example'
                     ],
                     'my_collection' => [
-                        '__files' => [
+                        '__templates' => [
                             'a.txt',
                             'b.txt',
                         ],
@@ -32,10 +35,10 @@ class JsonParserTest extends \PHPUnit_Framework_TestCase
         ];
     }
 
-    public function nonJsonDataProvider()
+    public function nonYamlDataProvider()
     {
         $files = array_merge(
-            self::getAllYamlResources(),
+            self::getAllJsonResources(),
             self::getAllIniResources()
         );
 
@@ -43,20 +46,22 @@ class JsonParserTest extends \PHPUnit_Framework_TestCase
             return ['file' => $file];
         }, $files);
 
+//        var_dump($files);
+
         return $files;
     }
 
     /**
-     * @dataProvider jsonDataProvider
+     * @dataProvider yamlDataProvider
      *
      * @param $file
      * @param $expected
      */
-    public function testParseCorrectJson($file, $expected)
+    public function testParseCorrectYaml($file, $expected)
     {
         // arrange
-        $parser = new JsonParser();
-        $string = file_get_contents(self::jsonResourcesDir() . $file);
+        $parser = new YamlParser();
+        $string = file_get_contents(self::yamlResourceDir() . $file);
 
         // act
         $supported = $parser->supports($string);
@@ -68,14 +73,14 @@ class JsonParserTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
-     * @dataProvider nonJsonDataProvider
+     * @dataProvider nonYamlDataProvider
      *
      * @param $file
      */
-    public function testDoNotSupportNonJson($file)
+    public function testDoNotSupportNonYaml($file)
     {
         // arrange
-        $parser = new JsonParser();
+        $parser = new YamlParser();
         $string = file_get_contents($file);
 
         // act
@@ -86,18 +91,18 @@ class JsonParserTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
-     * @dataProvider nonJsonDataProvider
+     * @dataProvider nonYamlDataProvider
      *
      * @param $file
      */
-    public function testThrowsExceptionOnParseNonJson($file)
+    public function testThrowExceptionOnParseNonYaml($file)
     {
         // arrange
-        $parser = new JsonParser();
+        $parser = new YamlParser();
         $string = file_get_contents($file);
 
         // expect
-        $this->expectException(JsonParserException::class);
+        $this->expectException(YamlParserException::class);
 
         // act
         $parser->parse($string);
