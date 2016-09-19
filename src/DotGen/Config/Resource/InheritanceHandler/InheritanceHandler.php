@@ -112,7 +112,7 @@ class InheritanceHandler
                     $childCollection->getContent()
                 );
 
-                $mergedTemplates = array_replace_recursive(
+                $mergedTemplates = array_merge(
                     $parentCollection->getTemplates(),
                     $childCollection->getTemplates()
                 );
