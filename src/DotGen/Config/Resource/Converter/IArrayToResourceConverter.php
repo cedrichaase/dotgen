@@ -2,6 +2,7 @@
 namespace DotGen\Config\Resource\Converter;
 
 use DotGen\Config\Resource\IResource;
+use Psr\Log\LoggerInterface;
 
 /**
  * Interface IArrayToResourceConverter
@@ -14,4 +15,11 @@ interface IArrayToResourceConverter
      * @return IResource
      */
     public function convert(array $array): IResource;
+
+    /**
+     * @param LoggerInterface $logger
+     *
+     * @return void
+     */
+    public function setLogger(LoggerInterface $logger);
 }
