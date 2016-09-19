@@ -46,8 +46,6 @@ class YamlParserTest extends \PHPUnit_Framework_TestCase
             return ['file' => $file];
         }, $files);
 
-//        var_dump($files);
-
         return $files;
     }
 
