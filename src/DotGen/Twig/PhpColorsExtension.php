@@ -18,6 +18,8 @@ class PhpColorsExtension extends \Twig_Extension
             new \Twig_SimpleFilter('saturate', [$this, 'saturate']),
             new \Twig_SimpleFilter('desaturate', [$this, 'desaturate']),
             new \Twig_SimpleFilter('complementary', [$this, 'complementary']),
+            new \Twig_SimpleFilter('isLight', [$this, 'isLight']),
+            new \Twig_SimpleFilter('isDark', [$this, 'isDark']),
         ];
     }
 
@@ -65,6 +67,18 @@ class PhpColorsExtension extends \Twig_Extension
     public function randomColor()
     {
         return bin2hex(openssl_random_pseudo_bytes(3));
+    }
+
+    public function isDark($colorString)
+    {
+        $color = new Color($colorString);
+        return $color->isDark();
+    }
+
+    public function isLight($colorString)
+    {
+        $color = new Color($colorString);
+        return $color->isLight();
     }
 
     /**
