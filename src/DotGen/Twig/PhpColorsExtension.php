@@ -21,6 +21,13 @@ class PhpColorsExtension extends \Twig_Extension
         ];
     }
 
+    public function getFunctions()
+    {
+        return [
+            new \Twig_SimpleFunction('randomColor', 'randomColor'),
+        ];
+    }
+
     public function darken($colorString, $amount = 10)
     {
         $color = new Color($colorString);
@@ -53,6 +60,11 @@ class PhpColorsExtension extends \Twig_Extension
         $saturation = $hsl['S'];
         $hsl['S'] = $saturation - min($saturation * $amount / 100, 1);
         return Color::hslToHex($hsl);
+    }
+
+    public function randomColor()
+    {
+        return bin2hex(openssl_random_pseudo_bytes(3));
     }
 
     /**
