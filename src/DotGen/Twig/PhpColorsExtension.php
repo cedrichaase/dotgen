@@ -24,7 +24,7 @@ class PhpColorsExtension extends \Twig_Extension
     public function getFunctions()
     {
         return [
-            new \Twig_SimpleFunction('randomColor', 'randomColor'),
+            new \Twig_SimpleFunction('randomColor', [$this, 'randomColor']),
         ];
     }
 
