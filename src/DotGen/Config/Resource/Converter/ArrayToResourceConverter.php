@@ -101,7 +101,7 @@ class ArrayToResourceConverter implements IArrayToResourceConverter
             $templates = $rawCollection[self::COLLECTION_KEY_TEMPLATES] ?? [];
             if(!$templates)
             {
-                $this->logger->warning('No templates found for collection', [
+                $this->logger->debug('No templates found for collection', [
                     'collection' => $name,
                 ]);
             }
