@@ -90,6 +90,7 @@ class FileSystemInput
         foreach($includes as $include)
         {
             $repo = new FileResourceRepository($include);
+            $repo->setLogger($this->logger);
             $this->inheritor->registerRepository($repo);
         }
         $resource = $this->inheritor->extend($resource);

@@ -47,6 +47,7 @@ class ArrayToResourceConverterTest extends \PHPUnit_Framework_TestCase
 
         // act
         $resource = $converter->convert($array);
+        $resource2 = $converter->convert($array); // get cached
         $collections = $resource->getCollections();
 
         // assert
@@ -90,5 +91,7 @@ class ArrayToResourceConverterTest extends \PHPUnit_Framework_TestCase
             'third-template-name',
             'fourth-template-name',
         ]);
+
+        self::assertSame($resource, $resource2); // cached result is the same as first
     }
 }

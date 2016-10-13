@@ -4,6 +4,8 @@ namespace DotGen\Api;
 use DotGen\Config\Resource\Converter\BaseDirTemplateMapper;
 use DotGen\Generator\Generator;
 use DotGen\TemplateEngine\TemplateEngineManager;
+use DotGen\TemplateEngine\TwigTemplateEngine;
+use DotGen\Twig\PhpColorsExtension;
 use Psr\Log\LoggerInterface;
 use Psr\Log\NullLogger;
 
@@ -23,6 +25,10 @@ class FileSystemOutput
     {
         // begin render process
         $engine = new TemplateEngineManager($templateDir);
+
+        $twig = new TwigTemplateEngine($templateDir);
+        $twig->addExtension(new PhpColorsExtension());
+        $engine->registerExclusive($twig);
 
         $generator = new Generator($resource, $engine);
         $generator->setLogger($this->logger);

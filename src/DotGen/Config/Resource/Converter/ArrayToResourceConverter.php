@@ -3,6 +3,7 @@ namespace DotGen\Config\Resource\Converter;
 
 use DotGen\Config\Entity\Collection;
 use DotGen\Config\Resource\ConfigResource;
+use DotGen\Config\Resource\ICache;
 use DotGen\Config\Resource\IResource;
 use Psr\Log\LoggerInterface;
 use Psr\Log\NullLogger;
@@ -36,11 +37,17 @@ class ArrayToResourceConverter implements IArrayToResourceConverter
     private $logger;
 
     /**
+     * @var ICache
+     */
+    private $cache;
+
+    /**
      * ArrayToResourceConverter constructor.
      */
     public function __construct()
     {
         $this->logger = new NullLogger();
+        $this->cache = new ArrayConversionCache();
     }
 
     /**
@@ -49,6 +56,14 @@ class ArrayToResourceConverter implements IArrayToResourceConverter
      */
     public function convert(array $array): IResource
     {
+        if($resource = $this->cache->find($array))
+        {
+            $this->logger->debug('conv cache hit');
+            return $resource;
+        }
+
+        $this->logger->debug('conv cache miss');
+
         $name = $this->extractName($array);
 
         $this->logger->debug('Converting array to resource', [
@@ -62,6 +77,8 @@ class ArrayToResourceConverter implements IArrayToResourceConverter
         $resource->setCollections($collections);
         $resource->setName($name);
         $resource->setExtends($extends);
+
+        $this->cache->save($resource, $array);
 
         return $resource;
     }
@@ -84,7 +101,7 @@ class ArrayToResourceConverter implements IArrayToResourceConverter
             $templates = $rawCollection[self::COLLECTION_KEY_TEMPLATES] ?? [];
             if(!$templates)
             {
-                $this->logger->warning('No templates found for collection', [
+                $this->logger->debug('No templates found for collection', [
                     'collection' => $name,
                 ]);
             }

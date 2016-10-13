@@ -65,4 +65,12 @@ class TwigTemplateEngine implements ITemplateEngine
         $suffix = '.' . self::FILE_EXTENSION;
         return is_file($this->templateDir . DIRECTORY_SEPARATOR . $path . $suffix);
     }
+
+    /**
+     * @param \Twig_Extension $extension
+     */
+    public function addExtension(\Twig_Extension $extension)
+    {
+        $this->env->addExtension($extension);
+    }
 }

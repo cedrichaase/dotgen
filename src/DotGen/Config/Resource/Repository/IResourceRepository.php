@@ -15,7 +15,7 @@ interface IResourceRepository
      *
      * @param $name
      *
-     * @return mixed
+     * @return IResource
      * 
      * @throws ResourceRepositoryException
      */

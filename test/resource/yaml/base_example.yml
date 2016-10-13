@@ -1,0 +1,10 @@
+global:
+  __name: base_example
+
+my_collection:
+  __templates:
+    - a.txt
+    - b.txt
+  some_var: some_value
+  some_bool: true
+  some_number: 5

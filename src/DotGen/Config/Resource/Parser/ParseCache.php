@@ -40,11 +40,4 @@ class ParseCache
     {
         $this->cache[sha1($string)] = $parsed;
     }
-
-    public function tryCache($parseFunction, $string)
-    {
-        if(!$parsed = $this->find($string))
-            $parsed = $parseFunction($string);
-        return $parsed;
-    }
 }
