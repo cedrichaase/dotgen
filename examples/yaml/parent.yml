@@ -1,5 +1,4 @@
 global:
-  __abstract: true
   __name: parent
   __extends: grandparent
   inherited: This value was inherited

@@ -1,6 +1,6 @@
 global:
   __name: grandparent
-  __abstract: true
+  __extends: child
 
 my_collection:
   __templates: [some_file.txt]
